@@ -2,24 +2,29 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Ibrahim Abdullaziz | Software Engineer",
+  title: "Ibrahim Abdullaziz | Frontend Developer & Software Engineer",
   description:
-    "Engineer with a solid foundation in C++, Data Structures, OOP & problem solving — channeling that rigor into building production-grade web apps with React & Next.js.",
+    "Engineer with a solid foundation in C++, Data Structures, and OOP, building production-grade web apps with React & Next.js.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
-
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -32,7 +37,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Navbar />
-        <div className="flex-grow">{children}</div>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>
