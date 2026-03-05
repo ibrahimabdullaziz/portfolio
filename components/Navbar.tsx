@@ -36,7 +36,6 @@ export function Navbar() {
           Ibrahim<span className="text-accent">.</span>
         </a>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
             <a
@@ -55,7 +54,6 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Mobile Nav Toggle */}
         <button
           className="md:hidden text-text-primary p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -65,7 +63,6 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.nav
