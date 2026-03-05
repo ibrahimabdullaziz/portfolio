@@ -41,14 +41,18 @@ export function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-text-secondary hover:text-accent transition-colors"
+              className="text-sm font-medium text-text-secondary hover:text-accent transition-colors relative group"
             >
               {link.name}
+              <motion.span
+                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent rounded-full transition-all group-hover:w-full"
+                layoutId="nav-underline"
+              />
             </a>
           ))}
           <a
             href="#contact"
-            className="px-5 py-2 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-all shadow-[0_0_15px_var(--color-accent-glow)]"
+            className="px-5 py-2 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-all shadow-[0_0_15px_var(--color-accent-glow)] lg:ml-4"
           >
             Let&apos;s Talk
           </a>

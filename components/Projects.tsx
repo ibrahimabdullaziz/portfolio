@@ -20,7 +20,7 @@ const projects = [
     ],
     demo: "#",
     github: "https://github.com/ibrahimabdullaziz",
-    image: "/api/placeholder/800/400",
+    image: "/vsync.png",
   },
   {
     title: "UrMoviez",
@@ -36,7 +36,7 @@ const projects = [
     ],
     demo: "#",
     github: "https://github.com/ibrahimabdullaziz",
-    image: "/api/placeholder/600/400",
+    image: "/urmoviez.png",
   },
 ];
 
@@ -100,8 +100,8 @@ export function Projects() {
                   {project.title}
                 </h3>
 
-                <div className="bg-surface border border-border p-6 rounded-2xl shadow-lg relative z-20 mb-6 text-text-secondary">
-                  <p>{project.description}</p>
+                <div className="bg-surface/60 backdrop-blur-md border border-border/50 p-6 md:p-8 rounded-2xl shadow-xl relative z-20 mb-6 text-text-secondary group-hover:border-accent/30 transition-all">
+                  <p className="leading-relaxed">{project.description}</p>
                 </div>
 
                 <div className="flex flex-wrap gap-2 mb-8">

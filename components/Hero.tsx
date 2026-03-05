@@ -9,8 +9,32 @@ export function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden w-full pt-20"
     >
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-        <div className="absolute top-[20%] left-[10%] w-64 h-64 bg-accent rounded-full filter blur-[100px]" />
-        <div className="absolute top-[60%] right-[10%] w-80 h-80 bg-accent-hover rounded-full filter blur-[120px]" />
+        <motion.div
+          animate={{
+            x: [0, 50, -50, 0],
+            y: [0, -30, 30, 0],
+            scale: [1, 1.1, 0.9, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute top-[10%] left-[5%] w-96 h-96 bg-accent rounded-full filter blur-[120px]"
+        />
+        <motion.div
+          animate={{
+            x: [0, -60, 60, 0],
+            y: [0, 40, -40, 0],
+            scale: [1, 0.9, 1.1, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-accent-hover rounded-full filter blur-[150px]"
+        />
       </div>
 
       <div className="container mx-auto px-6 md:px-12 relative z-10 text-center flex flex-col items-center">
