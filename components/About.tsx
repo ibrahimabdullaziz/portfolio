@@ -19,7 +19,6 @@ export function About() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Bio text */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -57,7 +56,6 @@ export function About() {
             </p>
           </motion.div>
 
-          {/* Quick Stats Grid */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -91,9 +89,6 @@ export function About() {
                 <h3 className="text-2xl font-bold text-text-primary mb-1">
                   Full-Stack Capable
                 </h3>
-                <p className="text-text-muted text-sm">
-                  Real-time Video, DB Sync, Auth
-                </p>
               </div>
             </div>
           </motion.div>
