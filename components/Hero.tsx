@@ -8,7 +8,6 @@ export function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden w-full pt-20"
     >
-      {/* Background Particles Placeholder */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
         <div className="absolute top-[20%] left-[10%] w-64 h-64 bg-accent rounded-full filter blur-[100px]" />
         <div className="absolute top-[60%] right-[10%] w-80 h-80 bg-accent-hover rounded-full filter blur-[120px]" />
@@ -79,7 +78,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
