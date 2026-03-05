@@ -20,7 +20,7 @@ const projects = [
     ],
     demo: "#",
     github: "https://github.com/ibrahimabdullaziz",
-    image: "/api/placeholder/800/400", // using placeholder, user can replace later
+    image: "/api/placeholder/800/400",
   },
   {
     title: "UrMoviez",
@@ -71,7 +71,6 @@ export function Projects() {
                   : "lg:flex-row-reverse w-full max-w-5xl mx-auto"
               }`}
             >
-              {/* Image Container */}
               <div
                 className={`relative overflow-hidden rounded-2xl border border-border bg-surface ${
                   project.featured
@@ -87,7 +86,6 @@ export function Projects() {
                 />
               </div>
 
-              {/* Content Container */}
               <div
                 className={`flex flex-col justify-center ${
                   project.featured ? "lg:w-5/12 lg:pl-8" : "lg:w-1/2 lg:pr-8"
