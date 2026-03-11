@@ -8,8 +8,15 @@ import { ThemeProvider } from '@/components/common/ThemeProviders';
 import { generateMetadata as getMetadata } from '@/config/Meta';
 import ReactLenis from 'lenis/react';
 import { ViewTransitions } from 'next-view-transitions';
+import { Hanken_Grotesk } from 'next/font/google';
 
 import './globals.css';
+
+const hanken = Hanken_Grotesk({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-hanken-grotesk',
+});
 
 export const metadata = getMetadata('/');
 
@@ -20,8 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" suppressHydrationWarning>
-        <body className={`font-hanken-grotesk antialiased`}>
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={`${hanken.variable} scroll-smooth`}
+      >
+        <body className="font-hanken-grotesk antialiased bg-background text-foreground">
+          <UmamiAnalytics />
+
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -29,13 +42,16 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <ReactLenis root>
-              <Navbar />
-              {children}
-              <OnekoCat />
-              <Quote />
-              <Footer />
-              <ChatBubble />
-              <UmamiAnalytics />
+              <div className="relative flex min-h-screen flex-col">
+                <Navbar />
+
+                <main className="flex-1">{children}</main>
+
+                <OnekoCat />
+                <Quote />
+                <Footer />
+                <ChatBubble />
+              </div>
             </ReactLenis>
           </ThemeProvider>
         </body>

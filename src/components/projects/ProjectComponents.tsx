@@ -1,4 +1,3 @@
-import Bun from '@/components/technologies/Bun';
 import JavaScript from '@/components/technologies/JavaScript';
 import MongoDB from '@/components/technologies/MongoDB';
 // Import technology components
@@ -11,8 +10,6 @@ import TypeScript from '@/components/technologies/TypeScript';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import React from 'react';
-
-import { CodeCopyButton } from '../blog/CodeCopyButton';
 
 // Technology mapping for dynamic components
 const TechnologyComponents: Record<string, React.ComponentType> = {
@@ -33,8 +30,6 @@ const TechnologyComponents: Record<string, React.ComponentType> = {
   postgresql: PostgreSQL,
   Prisma: Prisma,
   prisma: Prisma,
-  Bun: Bun,
-  bun: Bun,
 };
 
 // Custom Technology component for displaying technology badges with icons
@@ -268,40 +263,13 @@ export const ProjectComponents = {
     children: React.ReactNode;
     [key: string]: unknown;
   }) => {
-    const getTextContent = (node: React.ReactNode): string => {
-      if (typeof node === 'string') {
-        return node;
-      }
-      if (typeof node === 'number') {
-        return String(node);
-      }
-      if (
-        React.isValidElement(node) &&
-        node.props &&
-        typeof node.props === 'object'
-      ) {
-        return getTextContent(
-          (node.props as { children?: React.ReactNode }).children,
-        );
-      }
-      if (Array.isArray(node)) {
-        return node.map(getTextContent).join('');
-      }
-      return '';
-    };
-
-    const codeText = getTextContent(children);
-
     return (
-      <div className="group relative mb-4">
-        <pre
-          className="bg-muted/30 overflow-x-auto rounded-lg border p-4 text-sm [&>code]:bg-transparent [&>code]:p-0"
-          {...props}
-        >
-          {children}
-        </pre>
-        <CodeCopyButton code={codeText} />
-      </div>
+      <pre
+        className="bg-muted/30 overflow-x-auto rounded-lg border p-4 mb-4 text-sm [&>code]:bg-transparent [&>code]:p-0"
+        {...props}
+      >
+        {children}
+      </pre>
     );
   },
   code: ({

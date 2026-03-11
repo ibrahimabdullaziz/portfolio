@@ -2,14 +2,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ProjectCaseStudyFrontmatter } from '@/types/project';
-import rehypeHighlight from '@shikijs/rehype';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 
 import Github from '../svgs/Github';
 import Website from '../svgs/Website';
-import { ProjectComponents } from './ProjectComponents';
 
 interface ProjectContentProps {
   frontmatter: ProjectCaseStudyFrontmatter;
@@ -205,22 +202,7 @@ export function ProjectContent({ frontmatter, content }: ProjectContentProps) {
 
       {/* Content */}
       <div className="prose prose-neutral dark:prose-invert max-w-none">
-        <MDXRemote
-          source={content}
-          components={ProjectComponents}
-          options={{
-            mdxOptions: {
-              rehypePlugins: [
-                [
-                  rehypeHighlight,
-                  {
-                    theme: 'github-dark',
-                  },
-                ],
-              ],
-            },
-          }}
-        />
+        <div className="whitespace-pre-wrap">{content}</div>
       </div>
     </article>
   );
