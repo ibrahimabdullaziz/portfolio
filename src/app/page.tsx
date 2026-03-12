@@ -1,5 +1,6 @@
 import Container from '@/components/common/Container';
 import About from '@/components/landing/About';
+import Achievements from '@/components/landing/Achievements';
 import CTA from '@/components/landing/CTA';
 import Github from '@/components/landing/Github';
 import Hero from '@/components/landing/Hero';
@@ -12,6 +13,7 @@ export default function page() {
       <Hero />
       <Work />
       <About />
+      <Achievements />
       <Github />
       <CTA />
     </Container>
