@@ -1,3 +1,4 @@
+import Facebook from '@/components/svgs/Facebook';
 import Github from '@/components/svgs/Github';
 import LinkedIn from '@/components/svgs/LinkedIn';
 import Mail from '@/components/svgs/Mail';
@@ -94,5 +95,10 @@ export const socialLinks = [
     name: 'Email',
     href: 'mailto:ibrahimabdullaziz55@gmail.com',
     icon: <Mail />,
+  },
+  {
+    name: 'Facebook',
+    href: 'https://www.facebook.com/share/14Z3buaWw5y/',
+    icon: <Facebook />,
   },
 ];

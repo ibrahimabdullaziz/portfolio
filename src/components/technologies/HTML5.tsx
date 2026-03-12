@@ -6,7 +6,7 @@ export default function HTML5({ ...props }) {
       role="img"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
+      fill="#E34F26"
       {...props}
     >
       <title>HTML5</title>

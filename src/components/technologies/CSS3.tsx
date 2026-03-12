@@ -6,7 +6,7 @@ export default function CSS3({ ...props }) {
       role="img"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
+      fill="#1572B6"
       {...props}
     >
       <title>CSS3</title>

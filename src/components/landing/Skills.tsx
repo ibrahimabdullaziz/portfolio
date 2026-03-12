@@ -1,13 +1,23 @@
 import Container from '@/components/common/Container';
 import SectionHeading from '@/components/common/SectionHeading';
 import Github from '@/components/svgs/Github';
+import CPlusPlus from '@/components/technologies/CPlusPlus';
 import CSS3 from '@/components/technologies/CSS3';
+import CSharp from '@/components/technologies/CSharp';
+import Convex from '@/components/technologies/Convex';
+import FramerMotion from '@/components/technologies/FramerMotion';
 import HTML5 from '@/components/technologies/HTML5';
 import JavaScript from '@/components/technologies/JavaScript';
 import MongoDB from '@/components/technologies/MongoDB';
+import Netlify from '@/components/technologies/Netlify';
 import NextJs from '@/components/technologies/NextJs';
 import NodeJs from '@/components/technologies/NodeJs';
+import PostgreSQL from '@/components/technologies/PostgreSQL';
+import Postman from '@/components/technologies/Postman';
 import ReactIcon from '@/components/technologies/ReactIcon';
+import ReactQuery from '@/components/technologies/ReactQuery';
+import Redux from '@/components/technologies/Redux';
+import Shadcn from '@/components/technologies/Shadcn';
 import TailwindCss from '@/components/technologies/TailwindCss';
 import TypeScript from '@/components/technologies/TypeScript';
 import {
@@ -20,14 +30,24 @@ import React from 'react';
 export const allSkills = [
   { name: 'JavaScript', icon: <JavaScript key="javascript" /> },
   { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
+  { name: 'C++', icon: <CPlusPlus key="cplusplus" /> },
+  { name: 'C#', icon: <CSharp key="csharp" /> },
   { name: 'React', icon: <ReactIcon key="react" /> },
   { name: 'Next.js', icon: <NextJs key="nextjs" /> },
+  { name: 'Redux Toolkit', icon: <Redux key="redux" /> },
+  { name: 'TanStack Query', icon: <ReactQuery key="reactquery" /> },
   { name: 'Node.js', icon: <NodeJs key="nodejs" /> },
   { name: 'Tailwind CSS', icon: <TailwindCss key="tailwindcss" /> },
+  { name: 'Shadcn UI', icon: <Shadcn key="shadcn" /> },
+  { name: 'Framer Motion', icon: <FramerMotion key="framermotion" /> },
   { name: 'MongoDB', icon: <MongoDB key="mongodb" /> },
+  { name: 'PostgreSQL', icon: <PostgreSQL key="postgresql" /> },
+  { name: 'Convex', icon: <Convex key="convex" /> },
   { name: 'HTML5', icon: <HTML5 key="html5" /> },
   { name: 'CSS3', icon: <CSS3 key="css3" /> },
   { name: 'Git & GitHub', icon: <Github key="github" /> },
+  { name: 'Netlify', icon: <Netlify key="netlify" /> },
+  { name: 'Postman', icon: <Postman key="postman" /> },
 ];
 
 export default function Skills() {

@@ -53,17 +53,38 @@ export default function Hero() {
     <Container className="mx-auto max-w-5xl">
       {/* Image and Content Row */}
       <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
-        {/* Image */}
-        <Image
-          src="/assets/logo.png"
-          alt="hero"
-          width={240}
-          height={240}
-          className="size-60 rounded-md border-2 border-secondary bg-blue-300 dark:bg-yellow-300 shrink-0 object-cover"
-        />
+        {/* Left Column: Image and Social Links */}
+        <div className="flex flex-col gap-6 shrink-0 w-full md:w-1/3">
+          <Image
+            src="/assets/logo.png"
+            alt="hero"
+            width={400}
+            height={400}
+            className="w-full aspect-square rounded-md border-2 border-secondary bg-blue-300 dark:bg-yellow-300 object-cover"
+          />
+          {/* Social Links */}
+          <div className="flex justify-center gap-4">
+            {socialLinks.map((link) => (
+              <Tooltip key={link.name} delayDuration={0}>
+                <TooltipTrigger asChild>
+                  <Link
+                    href={link.href}
+                    key={link.name}
+                    className="text-secondary flex items-center justify-center p-2 hover:text-primary transition-colors"
+                  >
+                    <span className="size-6">{link.icon}</span>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{link.name}</p>
+                </TooltipContent>
+              </Tooltip>
+            ))}
+          </div>
+        </div>
 
-        {/* Text Area */}
-        <div className="flex flex-col gap-4 pt-4 md:pt-0">
+        {/* Right Column: Text Area */}
+        <div className="flex flex-col gap-4 pt-4 md:pt-0 md:w-2/3">
           <h1 className="text-4xl font-bold">
             Hi, I&apos;m {name} —{' '}
             <span className="text-secondary">{title}</span>
@@ -99,26 +120,6 @@ export default function Hero() {
                 </Button>
               );
             })}
-          </div>
-
-          {/* Social Links */}
-          <div className="mt-8 flex gap-2">
-            {socialLinks.map((link) => (
-              <Tooltip key={link.name} delayDuration={0}>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={link.href}
-                    key={link.name}
-                    className="text-secondary flex items-center gap-2"
-                  >
-                    <span className="size-6">{link.icon}</span>
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{link.name}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
           </div>
         </div>
       </div>
