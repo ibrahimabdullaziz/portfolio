@@ -1,4 +1,3 @@
-import { about } from './About';
 import { heroConfig } from './Hero';
 
 export interface PageMeta {
@@ -16,7 +15,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   ogImage: '/meta/opengraph-image.png',
   author: {
-    name: about.name,
+    name: 'Ibrahim Abdullaziz Elgamal',
     twitter: '@Eng_Ibrahim00',
     github: 'ibrahimabdullaziz',
     linkedin: 'ibrahim-abdullaziz-894035339',
@@ -37,7 +36,7 @@ export const siteConfig = {
 export const pageMetadata: Record<string, PageMeta> = {
   '/': {
     title: `${heroConfig.name} - ${heroConfig.title}`,
-    description: `${about.description} Explore my projects, experience, and technical expertise.`,
+    description: `I'm a results-driven Software Engineer specialized in building high-performance, scalable web applications. Certified React Developer from ITI with deep expertise in Next.js 14, React 19, and real-time communication systems. Currently a third-year Computer Science student at Kafr Elsheikh University. Explore my projects, experience, and technical expertise.`,
     keywords: [
       'portfolio',
       'developer',
