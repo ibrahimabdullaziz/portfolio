@@ -7,7 +7,7 @@ import SectionHeading from '../common/SectionHeading';
 
 export default function Achievements() {
   return (
-    <Container className="mt-10">
+    <Container id="achievements" className="mt-10">
       <SectionHeading subHeading="My" heading="Certificates & Achievements" />
       <div className="mt-8">
         <CertificatesGallery certificates={achievementsConfig.certificates} />

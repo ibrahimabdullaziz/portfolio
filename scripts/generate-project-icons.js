@@ -9,7 +9,13 @@ const icons = [
   { name: 'TMDB', slug: 'themoviedatabase', color: '#01B4E4' },
 ];
 
-const destDir = path.join(__dirname, 'src', 'components', 'technologies');
+// Adjust destDir to point back to src/components/technologies from scripts/
+const destDir = path.join(__dirname, '..', 'src', 'components', 'technologies');
+
+if (!fs.existsSync(destDir)) {
+  console.error('Destination directory not found:', destDir);
+  process.exit(1);
+}
 
 icons.forEach((icon) => {
   const url = `https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/${icon.slug}.svg`;
@@ -23,9 +29,7 @@ icons.forEach((icon) => {
       res.on('end', () => {
         try {
           if (res.statusCode !== 200) {
-            console.error(
-              `Failed downloading ${icon.name}: ${res.statusCode} ${rawData}`,
-            );
+            console.error(`Failed downloading ${icon.name}: ${res.statusCode}`);
             return;
           }
           const pathMatch = rawData.match(/<path\s+d="([^"]+)"/);

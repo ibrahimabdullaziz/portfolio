@@ -4,16 +4,22 @@ export interface NavItem {
 }
 
 export const navbarConfig = {
-  logo: {
-    src: '/assets/logo.png',
-    alt: 'logo',
-    width: 100,
-    height: 100,
-  },
   navItems: [
     {
+      label: 'Home',
+      href: '/#home',
+    },
+    {
+      label: 'Skills',
+      href: '/#skills',
+    },
+    {
       label: 'Projects',
-      href: '/projects',
+      href: '/#projects',
+    },
+    {
+      label: 'Achievements',
+      href: '/#achievements',
     },
   ] as NavItem[],
 };

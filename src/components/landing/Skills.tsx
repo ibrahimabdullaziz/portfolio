@@ -3,7 +3,6 @@ import SectionHeading from '@/components/common/SectionHeading';
 import Github from '@/components/svgs/Github';
 import CPlusPlus from '@/components/technologies/CPlusPlus';
 import CSS3 from '@/components/technologies/CSS3';
-import CSharp from '@/components/technologies/CSharp';
 import Convex from '@/components/technologies/Convex';
 import FramerMotion from '@/components/technologies/FramerMotion';
 import HTML5 from '@/components/technologies/HTML5';
@@ -31,7 +30,6 @@ export const allSkills = [
   { name: 'JavaScript', icon: <JavaScript key="javascript" /> },
   { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
   { name: 'C++', icon: <CPlusPlus key="cplusplus" /> },
-  { name: 'C#', icon: <CSharp key="csharp" /> },
   { name: 'React', icon: <ReactIcon key="react" /> },
   { name: 'Next.js', icon: <NextJs key="nextjs" /> },
   { name: 'Redux Toolkit', icon: <Redux key="redux" /> },
@@ -52,7 +50,7 @@ export const allSkills = [
 
 export default function Skills() {
   return (
-    <Container className="mt-20">
+    <Container id="skills" className="mt-20">
       <SectionHeading subHeading="Technologies & Tools" heading="Skills" />
       <div className="mt-8 flex flex-wrap gap-4">
         {allSkills.map((skill) => (

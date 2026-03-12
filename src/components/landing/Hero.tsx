@@ -50,7 +50,7 @@ export default function Hero() {
   };
 
   return (
-    <Container className="mx-auto max-w-5xl">
+    <Container id="home" className="mx-auto max-w-5xl">
       {/* Image and Content Row */}
       <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
         {/* Left Column: Image and Social Links */}
