@@ -88,22 +88,6 @@ export const pageMetadata: Record<string, PageMeta> = {
     twitterCard: 'summary',
   },
 
-  '/gears': {
-    title: 'Gears - My Setup & Tools',
-    description:
-      'Discover the tools, devices, and software I use to get my work done efficiently.',
-    keywords: [
-      'setup',
-      'tools',
-      'devices',
-      'software',
-      'productivity',
-      'development environment',
-    ],
-    ogImage: '/meta/gears.png',
-    twitterCard: 'summary_large_image',
-  },
-
   '/setup': {
     title: 'Setup Guide - VS Code Configuration',
     description:
