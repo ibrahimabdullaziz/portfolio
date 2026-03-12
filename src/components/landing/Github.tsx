@@ -32,15 +32,39 @@ type GitHubContributionResponse = {
     | 'FOURTH_QUARTILE';
 };
 
-// Helper function to filter contributions to past year
-function filterLastYear(contributions: ContributionItem[]): ContributionItem[] {
-  const oneYearAgo = new Date();
-  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+// Helper function to filter and pad contributions to current year (from Jan 1st to Dec 31st)
+function filterCurrentYear(
+  contributions: ContributionItem[],
+): ContributionItem[] {
+  const currentYear = new Date().getFullYear();
+  const janFirst = new Date(currentYear, 0, 1);
+  const decThirtyFirst = new Date(currentYear, 11, 31);
 
-  return contributions.filter((item) => {
-    const itemDate = new Date(item.date);
-    return itemDate >= oneYearAgo;
-  });
+  const contributionMap = new Map(
+    contributions.map((item) => [item.date, item]),
+  );
+
+  const fullYearContributions: ContributionItem[] = [];
+  const currentDate = new Date(janFirst);
+
+  while (currentDate <= decThirtyFirst) {
+    const dateString = currentDate.toISOString().split('T')[0];
+    const existingContribution = contributionMap.get(dateString);
+
+    if (existingContribution) {
+      fullYearContributions.push(existingContribution);
+    } else {
+      fullYearContributions.push({
+        date: dateString,
+        count: 0,
+        level: 0,
+      });
+    }
+
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return fullYearContributions;
 }
 
 export default function Github() {
@@ -98,8 +122,8 @@ export default function Github() {
             );
             setTotalContributions(total);
 
-            // Filter to show only the past year
-            const filteredContributions = filterLastYear(validContributions);
+            // Filter to show only the current year
+            const filteredContributions = filterCurrentYear(validContributions);
             setContributions(filteredContributions);
           } else {
             setHasError(true);
@@ -140,6 +164,17 @@ export default function Github() {
               </p>
             )}
           </div>
+          {!isLoading && !hasError && (
+            <Button variant="outline" size="sm" asChild>
+              <Link
+                href={`https://github.com/${githubConfig.username}`}
+                className="inline-flex items-center gap-2"
+              >
+                <GithubIcon className="h-4 w-4" />
+                {githubConfig.errorState.buttonText}
+              </Link>
+            </Button>
+          )}
         </div>
 
         {/* Content */}

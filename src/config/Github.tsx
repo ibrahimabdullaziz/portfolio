@@ -3,7 +3,7 @@ export const githubConfig = {
   apiUrl: 'https://github-contributions-api.deno.dev',
 
   title: 'GitHub Activity',
-  subtitle: 'coding journey over the past year',
+  subtitle: 'coding journey over the current year',
 
   blockSize: 11,
   blockMargin: 3,
