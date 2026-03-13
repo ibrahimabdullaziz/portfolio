@@ -1,5 +1,4 @@
 import UmamiAnalytics from '@/components/analytics/UmamiAnalytics';
-import ChatBubble from '@/components/common/ChatBubble';
 import Footer from '@/components/common/Footer';
 import LenisProvider from '@/components/common/LenisProvider';
 import Navbar from '@/components/common/Navbar';
@@ -68,7 +67,6 @@ export default function RootLayout({
                 <OnekoCat />
                 <Quote />
                 <Footer />
-                <ChatBubble />
               </div>
             </LenisProvider>
           </ThemeProvider>

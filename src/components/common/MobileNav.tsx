@@ -1,8 +1,9 @@
 'use client';
 
 import { navbarConfig } from '@/config/Navbar';
-import { Menu } from 'lucide-react';
+import { Menu, MessageSquareShare } from 'lucide-react';
 import { Link } from 'next-view-transitions';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Button } from '../ui/button';
@@ -14,7 +15,11 @@ import {
   SheetTrigger,
 } from '../ui/sheet';
 
-export default function MobileNav() {
+interface MobileNavProps {
+  onOpenMegatron: () => void;
+}
+
+export default function MobileNav({ onOpenMegatron }: MobileNavProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -40,6 +45,26 @@ export default function MobileNav() {
               {item.label}
             </Link>
           ))}
+          <button
+            onClick={() => {
+              setOpen(false);
+              onOpenMegatron();
+            }}
+            className="px-4 py-3 text-lg font-bold transition-all border-2 border-primary/20 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground rounded-xl flex items-center justify-between group mt-4"
+          >
+            <div className="flex items-center gap-3">
+              <div className="relative h-8 w-8 rounded-full border border-primary/30 shadow-sm">
+                <Image
+                  src="/assets/megatron.png"
+                  alt="Megatron"
+                  fill
+                  className="object-cover rounded-full"
+                />
+              </div>
+              <span>Ask Megatron</span>
+            </div>
+            <MessageSquareShare className="h-5 w-5 opacity-50 group-hover:opacity-100 transition-opacity" />
+          </button>
         </div>
       </SheetContent>
     </Sheet>
