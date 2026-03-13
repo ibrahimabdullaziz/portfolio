@@ -1,12 +1,37 @@
+'use client';
+
 import { footerConfig } from '@/config/Footer';
 import { socialLinks } from '@/config/Hero';
 import { navbarConfig } from '@/config/Navbar';
+import { useLenis } from 'lenis/react';
 import { Link } from 'next-view-transitions';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 import Container from './Container';
 
 export default function Footer() {
+  const lenis = useLenis();
+  const pathname = usePathname();
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (href.startsWith('/#') && pathname === '/') {
+      e.preventDefault();
+      const id = href.replace('/#', '');
+      const element = document.getElementById(id);
+      if (element && lenis) {
+        lenis.scrollTo(element, {
+          offset: -80,
+          duration: 1.5,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+        window.history.pushState(null, '', href);
+      }
+    }
+  };
   return (
     <Container className="py-12 mt-20 border-t border-neutral-200 dark:border-neutral-800">
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -27,6 +52,7 @@ export default function Footer() {
             <Link
               key={item.label}
               href={item.href}
+              onClick={(e) => handleLinkClick(e, item.href)}
               className="hover:text-primary transition-colors hover:underline hover:underline-offset-4"
             >
               {item.label}

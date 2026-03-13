@@ -299,3 +299,13 @@
 .prose h4 {
   font-size: calc(var(--blog-font-size) * 1.25);
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

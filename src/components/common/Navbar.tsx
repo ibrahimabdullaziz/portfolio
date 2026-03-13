@@ -2,6 +2,7 @@
 
 import { navbarConfig } from '@/config/Navbar';
 import { cn } from '@/lib/utils';
+import { useLenis } from 'lenis/react';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -10,13 +11,32 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import Container from './Container';
 import MegatronChat from './MegatronChat';
-import MobileNav from './MobileNav';
 import { ThemeToggleButton } from './ThemeSwitch';
 
 export default function Navbar() {
   const [isMegatronOpen, setIsMegatronOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const pathname = usePathname();
+  const lenis = useLenis();
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (href.startsWith('/#') && pathname === '/') {
+      e.preventDefault();
+      const id = href.replace('/#', '');
+      const element = document.getElementById(id);
+      if (element && lenis) {
+        lenis.scrollTo(element, {
+          offset: -80,
+          duration: 1.5,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+        window.history.pushState(null, '', href);
+      }
+    }
+  };
 
   // Track active section using IntersectionObserver
   useEffect(() => {
@@ -47,22 +67,37 @@ export default function Navbar() {
 
   return (
     <Container className="sticky top-0 z-20 rounded-md py-4 backdrop-blur-sm">
-      <div className="flex items-center justify-between px-6">
-        <div className="flex items-baseline gap-4">
-          <MobileNav onOpenMegatron={() => setIsMegatronOpen(true)} />
-          <div className="hidden md:flex items-center justify-center gap-6">
+      <div className="flex items-center justify-between px-4 md:px-6">
+        <div className="flex items-center gap-4 md:gap-8">
+          <Link
+            href="/#home"
+            onClick={(e) => handleLinkClick(e, '/#home')}
+            className="flex items-center gap-2 transition-transform hover:scale-105 shrink-0"
+          >
+            <div className="relative h-10 w-10 overflow-hidden rounded-md border-2 border-secondary bg-blue-300 dark:bg-yellow-300">
+              <Image
+                src="/assets/logo.png"
+                alt="Logo"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </Link>
+
+          <div className="flex items-center gap-4 md:gap-6 overflow-x-auto no-scrollbar py-1">
             {navbarConfig.navItems.map((item) => {
               const sectionId = item.href.replace('/#', '');
               const isActive = pathname === '/' && activeSection === sectionId;
               return (
                 <Link
                   className={cn(
-                    'transition-all duration-300 ease-in-out hover:underline hover:decoration-2 hover:underline-offset-4',
+                    'transition-all duration-300 ease-in-out hover:underline hover:decoration-2 hover:underline-offset-4 whitespace-nowrap text-sm md:text-base',
                     isActive &&
                       'text-primary font-medium underline decoration-2 underline-offset-4',
                   )}
                   key={item.label}
                   href={item.href}
+                  onClick={(e) => handleLinkClick(e, item.href)}
                 >
                   {item.label}
                 </Link>
