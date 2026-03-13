@@ -50,17 +50,31 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { triggerHaptic, isMobile } = useHapticFeedback();
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      const scrollElement = scrollAreaRef.current.querySelector(
-        '[data-radix-scroll-area-viewport]',
-      );
-      if (scrollElement) {
-        scrollElement.scrollTop = scrollElement.scrollHeight;
+    const scrollToBottom = () => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({
+          behavior: isLoading ? 'auto' : 'smooth',
+          block: 'end',
+        });
       }
-    }
-  }, [messages]);
+
+      if (scrollAreaRef.current) {
+        const scrollElement = scrollAreaRef.current.querySelector(
+          '[data-slot="scroll-area-viewport"]',
+        );
+        if (scrollElement) {
+          scrollElement.scrollTop = scrollElement.scrollHeight;
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(scrollToBottom, 50);
+    return () => clearTimeout(timeoutId);
+  }, [messages, open, isLoading]);
 
   const handleSendMessage = async (textOverride?: string) => {
     const textToSend = textOverride || newMessage;
@@ -81,10 +95,6 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
       }),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
-    setNewMessage('');
-    setIsLoading(true);
-
     const botMessageId = Date.now() + 1;
     const botMessage: Message = {
       id: botMessageId,
@@ -97,20 +107,40 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
       isStreaming: true,
     };
 
-    setMessages((prev) => [...prev, botMessage]);
-    await sendMessage(messageText, botMessageId);
+    // Correctly update state once with both messages
+    const updatedMessages: Message[] = [...messages, userMessage, botMessage];
+    setMessages(updatedMessages);
+    setNewMessage('');
+    setIsLoading(true);
+
+    await sendMessage(messageText, botMessageId, updatedMessages);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSendMessage();
   };
 
-  const sendMessage = async (messageText: string, botMessageId: number) => {
+  const sendMessage = async (
+    messageText: string,
+    botMessageId: number,
+    currentMessages: Message[],
+  ) => {
     try {
-      const history = messages.slice(-10).map((msg) => ({
+      // Filter and ensure history starts with 'user'
+      const rawHistory = currentMessages
+        .filter((msg) => msg.id !== botMessageId)
+        .slice(-11);
+
+      let startIndex = 0;
+      while (
+        startIndex < rawHistory.length &&
+        rawHistory[startIndex].sender !== 'user'
+      ) {
+        startIndex++;
+      }
+
+      const history = rawHistory.slice(startIndex).map((msg) => ({
         role: msg.sender === 'user' ? ('user' as const) : ('model' as const),
         parts: [{ text: msg.text }],
       }));
@@ -127,7 +157,10 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error || `HTTP error! status: ${response.status}`,
+        );
       }
 
       const reader = response.body?.getReader();
@@ -176,14 +209,14 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
           }
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending message:', error);
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === botMessageId
             ? {
                 ...msg,
-                text: 'My communication arrays are experiencing interference. Please try again shortly.',
+                text: `My communication arrays are experiencing interference: ${error.message || 'Connection lost'}. Please try again shortly.`,
                 isStreaming: false,
               }
             : msg,
@@ -199,14 +232,15 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
       <DialogContent className="flex h-[85vh] w-full max-w-2xl flex-col p-0 overflow-hidden border-2 border-primary/20 shadow-2xl shadow-primary/10 sm:h-[70vh]">
         <DialogHeader className="border-b bg-muted/30 p-4">
           <div className="flex items-center space-x-3">
-            <div className="relative">
-              <Avatar className="h-10 w-10 border-2 border-primary bg-primary/10 shadow-lg shadow-primary/20">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-primary/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-500 animate-pulse" />
+              <Avatar className="h-10 w-10 border-2 border-primary bg-primary/10 shadow-lg shadow-primary/20 relative z-10 transition-transform duration-300 group-hover:scale-110">
                 <AvatarImage src="/assets/megatron.png" alt="Megatron" />
                 <AvatarFallback className="bg-primary text-primary-foreground font-bold">
                   MT
                 </AvatarFallback>
               </Avatar>
-              <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-background bg-green-500 shadow-sm animate-pulse" />
+              <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-background bg-green-500 shadow-sm animate-pulse z-20" />
             </div>
             <div className="text-left">
               <DialogTitle className="text-lg font-bold tracking-tight">
@@ -221,7 +255,8 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
 
         <ScrollArea
           ref={scrollAreaRef}
-          className="flex-1 p-4 md:p-6 bg-linear-to-b from-transparent to-primary/5"
+          data-lenis-prevent
+          className="flex-1 min-h-0 p-4 md:p-6 bg-linear-to-b from-transparent to-primary/5"
         >
           <div className="space-y-6">
             {messages.map((message) => (
@@ -299,7 +334,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                       variant="outline"
                       size="sm"
                       onClick={() => handleSendMessage(suggestion)}
-                      className="bg-background/50 hover:bg-primary hover:text-primary-foreground border-primary/20 h-auto py-2 px-3 text-xs font-medium transition-all duration-300 rounded-full"
+                      className="bg-background/50 hover:bg-primary hover:text-primary-foreground border-primary/20 h-auto py-2 px-3 text-xs font-semibold transition-all duration-300 rounded-full active:scale-90 hover:scale-105 hover:shadow-[0_0_10px_rgba(var(--primary),0.3)]"
                     >
                       {suggestion}
                     </Button>
@@ -307,32 +342,35 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                 </div>
               </div>
             )}
+            <div ref={messagesEndRef} className="h-4" />
           </div>
         </ScrollArea>
 
         <div className="border-t bg-muted/20 p-4 md:p-6">
-          <div className="relative flex items-center gap-2">
+          <form
+            onSubmit={handleSubmit}
+            className="relative flex items-center gap-2"
+          >
             <Input
               placeholder="Query Megatron..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
               disabled={isLoading}
               className="pr-12 bg-background border-primary/20 focus-visible:ring-primary/30 h-11 rounded-full shadow-inner"
             />
             <Button
+              type="submit"
               size="icon"
-              onClick={() => handleSendMessage()}
               disabled={!newMessage.trim() || isLoading}
-              className="absolute right-1 h-9 w-9 rounded-full bg-primary hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 active:scale-95"
+              className="absolute right-1 h-9 w-9 rounded-full bg-primary hover:bg-primary/90 hover:scale-105 hover:shadow-[0_0_15px_rgba(var(--primary),0.5)] shadow-md shadow-primary/20 transition-all duration-300 active:scale-95 text-primary-foreground"
             >
               {isLoading ? (
                 <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
               ) : (
-                <SendIcon className="h-4 w-4 text-primary-foreground" />
+                <SendIcon className="h-4 w-4" />
               )}
             </Button>
-          </div>
+          </form>
           <p className="mt-3 text-[10px] text-center text-muted-foreground uppercase tracking-widest font-bold opacity-60">
             Powered by Gemini AI • Encrypted Connection
           </p>
