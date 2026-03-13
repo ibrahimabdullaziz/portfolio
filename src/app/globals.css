@@ -163,6 +163,14 @@
   filter: blur(3px);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-blur {
+    animation: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+
 /* Removed global View Transition API overrides to allow Skiper toggle styles to apply */
 
 /* Custom button inner shadow */

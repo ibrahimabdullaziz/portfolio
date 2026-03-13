@@ -86,8 +86,6 @@ export const pageMetadata: Record<string, PageMeta> = {
     ogImage: '/meta/resume.png',
     twitterCard: 'summary',
   },
-
-  },
 };
 
 export function getPageMetadata(pathname: string): PageMeta {
