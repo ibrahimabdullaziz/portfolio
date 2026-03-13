@@ -183,7 +183,10 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: error instanceof Error ? error.message : 'Internal server error',
+        debug: process.env.NODE_ENV === 'development' ? error : undefined,
+      },
       { status: 500 },
     );
   }

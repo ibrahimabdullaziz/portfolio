@@ -241,6 +241,7 @@ export async function POST(request: NextRequest) {
 
     const allowedOrigins = [
       'http://localhost:3000',
+      'https://ibrahim-abdullaziz.vercel.app',
       process.env.NEXT_PUBLIC_URL || '',
     ].filter(Boolean);
 

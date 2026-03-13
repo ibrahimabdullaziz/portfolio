@@ -12,7 +12,7 @@ export const siteConfig = {
   name: heroConfig.name,
   title: 'Ibrahim Abdullaziz - Portfolio',
   description: 'Full Stack Software Engineer Portfolio by Ibrahim Abdullaziz',
-  url: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+  url: process.env.NEXT_PUBLIC_URL || 'https://ibrahim-abdullaziz.vercel.app',
   ogImage: '/meta/opengraph-image.png',
   author: {
     name: 'Ibrahim Abdullaziz Elgamal',

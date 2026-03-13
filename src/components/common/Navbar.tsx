@@ -34,6 +34,19 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Button
             onClick={() => setIsMegatronOpen(true)}
+            variant="ghost"
+            size="icon"
+            className="sm:hidden relative h-9 w-9 rounded-full border border-primary/20 bg-primary/5"
+          >
+            <Image
+              src="/assets/megatron.png"
+              alt="Megatron"
+              fill
+              className="object-cover rounded-full p-1"
+            />
+          </Button>
+          <Button
+            onClick={() => setIsMegatronOpen(true)}
             variant="outline"
             size="sm"
             className="hidden sm:flex items-center gap-2 rounded-full border-primary/20 bg-primary/5 hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-sm overflow-hidden group px-1 pr-3"

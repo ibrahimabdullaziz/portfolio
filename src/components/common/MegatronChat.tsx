@@ -371,9 +371,6 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
               )}
             </Button>
           </form>
-          <p className="mt-3 text-[10px] text-center text-muted-foreground uppercase tracking-widest font-bold opacity-60">
-            Powered by Gemini AI • Encrypted Connection
-          </p>
         </div>
       </DialogContent>
     </Dialog>
