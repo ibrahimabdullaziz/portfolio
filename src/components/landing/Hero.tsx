@@ -7,6 +7,7 @@ import React from 'react';
 
 import Container from '../common/Container';
 import Skill from '../common/Skill';
+import Typewriter from '../common/Typewriter';
 import CV from '../svgs/CV';
 import Chat from '../svgs/Chat';
 import { Button } from '../ui/button';
@@ -89,8 +90,17 @@ export default function Hero() {
         <div className="flex flex-col gap-4 pt-4 md:pt-0 md:w-2/3">
           <h1 className="text-4xl font-bold">
             Hi, I&apos;m {name} —{' '}
-            <span className="bg-gradient-to-r from-neutral-600 to-neutral-400 dark:from-neutral-300 dark:to-neutral-500 bg-clip-text text-transparent">
-              {title}
+            <span className="bg-gradient-to-r from-neutral-600 to-neutral-400 dark:from-neutral-300 dark:to-neutral-500 bg-clip-text text-transparent inline-block min-h-[1.2em]">
+              <Typewriter
+                strings={[
+                  title,
+                  'A Real-Time Systems Specialist.',
+                  'An Open Source Contributor.',
+                ]}
+                delay={2000}
+                typeSpeed={80}
+                deleteSpeed={40}
+              />
             </span>
           </h1>
 
