@@ -1,12 +1,12 @@
 import UmamiAnalytics from '@/components/analytics/UmamiAnalytics';
 import ChatBubble from '@/components/common/ChatBubble';
 import Footer from '@/components/common/Footer';
+import LenisProvider from '@/components/common/LenisProvider';
 import Navbar from '@/components/common/Navbar';
 import OnekoCat from '@/components/common/OnekoCat';
 import { Quote } from '@/components/common/Quote';
 import { ThemeProvider } from '@/components/common/ThemeProviders';
 import { generateMetadata as getMetadata } from '@/config/Meta';
-import ReactLenis from 'lenis/react';
 import { ViewTransitions } from 'next-view-transitions';
 import { Hanken_Grotesk } from 'next/font/google';
 
@@ -32,7 +32,25 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${hanken.variable} scroll-smooth`}
       >
-        <body className="font-hanken-grotesk antialiased bg-background text-foreground">
+        <head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'Person',
+                name: 'Ibrahim Abdullaziz',
+                url: 'https://sleek-portfolio.com', // Replace with real URL in production
+                jobTitle: 'Software Engineer',
+                sameAs: [
+                  'https://github.com/ibrahimabdullaziz',
+                  'https://linkedin.com/in/ibrahim-abdullaziz-894035339',
+                ],
+              }),
+            }}
+          />
+        </head>
+        <body className="font-hanken-grotesk bg-background text-foreground antialiased">
           <UmamiAnalytics />
 
           <ThemeProvider
@@ -41,7 +59,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ReactLenis root>
+            <LenisProvider>
               <div className="relative flex min-h-screen flex-col">
                 <Navbar />
 
@@ -52,7 +70,7 @@ export default function RootLayout({
                 <Footer />
                 <ChatBubble />
               </div>
-            </ReactLenis>
+            </LenisProvider>
           </ThemeProvider>
         </body>
       </html>

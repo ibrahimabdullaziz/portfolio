@@ -2,16 +2,6 @@
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
-@font-face {
-  font-family: 'Hanken Grotesk';
-  src: url('/fonts/HankenGrotesk-Variable.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Hanken Grotesk Italic';
-  src: url('/fonts/HankenGrotesk-Italic-Variable.ttf') format('truetype');
-}
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -134,7 +124,7 @@
 }
 
 .text-secondary {
-  @apply text-[#909092] dark:text-[#909092];
+  @apply text-[#767678] dark:text-[#909092];
 }
 
 .font-hanken-grotesk {
@@ -168,7 +158,7 @@
 
 .animate-fade-in-blur {
   animation: fadeInBlur 0.5s ease-out forwards;
-  animation-delay: 0.3s;
+  animation-delay: 0.1s;
   opacity: 0.4;
   filter: blur(3px);
 }

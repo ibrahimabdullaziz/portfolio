@@ -4,7 +4,7 @@ import { ctaConfig } from '@/config/CTA';
 import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
 import Cal, { getCalApi } from '@calcom/embed-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Container from '../common/Container';
 import {
@@ -33,26 +33,7 @@ export default function CTA({
   const { triggerHaptic, isMobile } = useHapticFeedback();
   const [showCalPopup, setShowCalPopup] = useState(false);
 
-  useEffect(() => {
-    const cal = async () => {
-      try {
-        const calApi = await getCalApi();
-        if (calApi) {
-          calApi('on', {
-            action: 'bookingSuccessful',
-            callback: () => {
-              setShowCalPopup(false);
-            },
-          });
-        }
-      } catch (error) {
-        console.error('Failed to initialize Cal API:', error);
-      }
-    };
-    cal();
-  }, []);
-
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (!calLink) {
       window.location.href = '/contact';
       return;
@@ -60,6 +41,22 @@ export default function CTA({
     if (isMobile()) {
       triggerHaptic('medium');
     }
+
+    // Lazy-load API only when dialog is opened
+    try {
+      const calApi = await getCalApi();
+      if (calApi) {
+        calApi('on', {
+          action: 'bookingSuccessful',
+          callback: () => {
+            setShowCalPopup(false);
+          },
+        });
+      }
+    } catch (error) {
+      console.error('Failed to initialize Cal API:', error);
+    }
+
     setShowCalPopup(true);
   };
 

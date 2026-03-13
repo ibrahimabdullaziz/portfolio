@@ -56,7 +56,11 @@ export default function Skills() {
         {allSkills.map((skill) => (
           <Tooltip key={skill.name}>
             <TooltipTrigger asChild>
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-100 p-2 hover:bg-neutral-200 hover:cursor-pointer dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800 transition-colors">
+              <div
+                role="img"
+                aria-label={skill.name}
+                className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-100 p-2 hover:bg-neutral-200 hover:cursor-pointer dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800 transition-colors"
+              >
                 {skill.icon}
               </div>
             </TooltipTrigger>

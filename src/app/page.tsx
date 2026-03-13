@@ -7,7 +7,7 @@ import Work from '@/components/landing/Projects';
 import Skills from '@/components/landing/Skills';
 import React from 'react';
 
-export default function page() {
+export default function Page() {
   return (
     <Container className="min-h-screen py-16">
       <Hero />

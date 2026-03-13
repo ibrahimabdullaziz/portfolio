@@ -78,9 +78,16 @@ export default function Github() {
     async function fetchData() {
       try {
         setIsLoading(true);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
         const response = await fetch(
           `${githubConfig.apiUrl}/${githubConfig.username}.json`,
+          { signal: controller.signal },
         );
+
+        clearTimeout(timeoutId);
+
         const data: { contributions?: unknown[] } = await response.json();
 
         if (data?.contributions && Array.isArray(data.contributions)) {

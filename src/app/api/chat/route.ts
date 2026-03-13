@@ -238,13 +238,23 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    const allowedOrigins = [
+      'http://localhost:3000',
+      process.env.NEXT_PUBLIC_URL || '',
+    ].filter(Boolean);
+
+    const origin = request.headers.get('origin') || '';
+    const allowOrigin = allowedOrigins.includes(origin)
+      ? origin
+      : allowedOrigins[0];
+
     return new NextResponse(stream, {
       status: 200,
       headers: {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         Connection: 'keep-alive',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': allowOrigin,
         'X-RateLimit-Limit': RATE_LIMIT_MAX_REQUESTS.toString(),
         'X-RateLimit-Remaining': rateLimit.remaining.toString(),
       },

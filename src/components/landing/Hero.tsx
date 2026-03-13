@@ -60,6 +60,7 @@ export default function Hero() {
             alt="hero"
             width={400}
             height={400}
+            priority
             className="w-full aspect-square rounded-md border-2 border-secondary bg-blue-300 dark:bg-yellow-300 object-cover"
           />
           {/* Social Links */}
@@ -70,6 +71,7 @@ export default function Hero() {
                   <Link
                     href={link.href}
                     key={link.name}
+                    aria-label={link.name}
                     className="text-secondary flex items-center justify-center p-2 hover:text-primary transition-colors"
                   >
                     <span className="size-6">{link.icon}</span>
