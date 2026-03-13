@@ -65,9 +65,14 @@ export default function Skills() {
                 <div
                   role="img"
                   aria-label={skill.name}
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100/50 p-2.5 backdrop-blur-sm transition-all hover:scale-110 hover:bg-neutral-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-800 dark:hover:shadow-neutral-900/50"
+                  className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-neutral-200 bg-neutral-100/50 p-4 min-w-[100px] backdrop-blur-sm transition-all hover:scale-105 hover:bg-neutral-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-800 dark:hover:shadow-neutral-900/50"
                 >
-                  {skill.icon}
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center transition-transform group-hover:scale-110">
+                    {skill.icon}
+                  </div>
+                  <span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+                    {skill.name}
+                  </span>
                 </div>
               </TooltipTrigger>
               <TooltipContent>
@@ -84,9 +89,14 @@ export default function Skills() {
                 <div
                   role="img"
                   aria-label={skill.name}
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100/50 p-2.5 backdrop-blur-sm transition-all hover:scale-110 hover:bg-neutral-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-800 dark:hover:shadow-neutral-900/50"
+                  className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-neutral-200 bg-neutral-100/50 p-4 min-w-[100px] backdrop-blur-sm transition-all hover:scale-105 hover:bg-neutral-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-800 dark:hover:shadow-neutral-900/50"
                 >
-                  {skill.icon}
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center transition-transform group-hover:scale-110">
+                    {skill.icon}
+                  </div>
+                  <span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+                    {skill.name}
+                  </span>
                 </div>
               </TooltipTrigger>
               <TooltipContent>
