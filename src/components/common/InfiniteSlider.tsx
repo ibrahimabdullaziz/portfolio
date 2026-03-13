@@ -29,7 +29,7 @@ export default function InfiniteSlider({
     >
       <div
         className={cn(
-          'flex min-w-full shrink-0 items-center justify-around gap-4 py-4',
+          'flex w-max shrink-0 py-4',
           direction === 'left'
             ? 'animate-marquee-left'
             : 'animate-marquee-right',
@@ -39,9 +39,31 @@ export default function InfiniteSlider({
           speed === 'slow' && '[animation-duration:60s]',
         )}
       >
-        {children}
-        {/* Duplicate content for seamless scrolling */}
-        {children}
+        {/* Track 1 */}
+        <div className="flex shrink-0 items-center justify-around gap-4 px-2">
+          {children}
+        </div>
+        {/* Track 2 */}
+        <div
+          className="flex shrink-0 items-center justify-around gap-4 px-2"
+          aria-hidden="true"
+        >
+          {children}
+        </div>
+        {/* Track 3 */}
+        <div
+          className="flex shrink-0 items-center justify-around gap-4 px-2"
+          aria-hidden="true"
+        >
+          {children}
+        </div>
+        {/* Track 4 */}
+        <div
+          className="flex shrink-0 items-center justify-around gap-4 px-2"
+          aria-hidden="true"
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
