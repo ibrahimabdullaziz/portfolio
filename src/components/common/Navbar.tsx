@@ -1,9 +1,11 @@
 'use client';
 
 import { navbarConfig } from '@/config/Navbar';
+import { cn } from '@/lib/utils';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 import { Button } from '../ui/button';
 import Container from './Container';
@@ -13,6 +15,35 @@ import { ThemeToggleButton } from './ThemeSwitch';
 
 export default function Navbar() {
   const [isMegatronOpen, setIsMegatronOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const pathname = usePathname();
+
+  // Track active section using IntersectionObserver
+  useEffect(() => {
+    if (pathname !== '/') return;
+
+    const sectionIds = navbarConfig.navItems
+      .map((item) => item.href.replace('/#', ''))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: '-20% 0px -60% 0px', threshold: 0 },
+    );
+
+    for (const id of sectionIds) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+
+    return () => observer.disconnect();
+  }, [pathname]);
 
   return (
     <Container className="sticky top-0 z-20 rounded-md py-4 backdrop-blur-sm">
@@ -20,15 +51,23 @@ export default function Navbar() {
         <div className="flex items-baseline gap-4">
           <MobileNav onOpenMegatron={() => setIsMegatronOpen(true)} />
           <div className="hidden md:flex items-center justify-center gap-6">
-            {navbarConfig.navItems.map((item) => (
-              <Link
-                className="transition-all duration-300 ease-in-out hover:underline hover:decoration-2 hover:underline-offset-4"
-                key={item.label}
-                href={item.href}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navbarConfig.navItems.map((item) => {
+              const sectionId = item.href.replace('/#', '');
+              const isActive = pathname === '/' && activeSection === sectionId;
+              return (
+                <Link
+                  className={cn(
+                    'transition-all duration-300 ease-in-out hover:underline hover:decoration-2 hover:underline-offset-4',
+                    isActive &&
+                      'text-primary font-medium underline decoration-2 underline-offset-4',
+                  )}
+                  key={item.label}
+                  href={item.href}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
         <div className="flex items-center gap-4">

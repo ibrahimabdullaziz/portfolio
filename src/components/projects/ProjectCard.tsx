@@ -32,7 +32,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   return (
-    <Card className="group relative h-full w-full overflow-hidden border-gray-100 p-0 shadow-none transition-all dark:border-gray-800">
+    <Card className="group relative h-full w-full overflow-hidden border border-neutral-200 dark:border-neutral-800 p-0 shadow-sm hover:shadow-md cursor-pointer transition-all duration-300">
       {/* Stretched Link to cover the entire card */}
       <Link
         href={project.projectDetailsPageSlug}

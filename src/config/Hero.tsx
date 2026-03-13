@@ -56,7 +56,7 @@ export const heroConfig = {
 
   description: {
     template:
-      'I build high-performance, scalable web apps using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. Specialized in <b>real-time systems</b> and <b>serverless architectures</b>, driven by clean code and seamless UX.',
+      'I build high-performance, scalable web apps using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. Specialized in <b>real-time systems</b> and <b>serverless architectures</b>.',
   },
 
   buttons: [

@@ -57,14 +57,14 @@ export default function Hero() {
         <div className="flex flex-col gap-6 shrink-0 w-full md:w-1/3">
           <Image
             src="/assets/logo.png"
-            alt="hero"
+            alt="Ibrahim Abdullaziz, Software Engineer"
             width={400}
             height={400}
             priority
             className="w-full aspect-square rounded-md border-2 border-secondary bg-blue-300 dark:bg-yellow-300 object-cover"
           />
           {/* Social Links */}
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-2">
             {socialLinks.map((link) => (
               <Tooltip key={link.name} delayDuration={0}>
                 <TooltipTrigger asChild>
@@ -72,9 +72,9 @@ export default function Hero() {
                     href={link.href}
                     key={link.name}
                     aria-label={link.name}
-                    className="text-secondary flex items-center justify-center p-2 hover:text-primary transition-colors"
+                    className="text-secondary flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-full hover:text-primary hover:bg-primary/5 transition-all duration-200"
                   >
-                    <span className="size-6">{link.icon}</span>
+                    <span className="size-5">{link.icon}</span>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -89,18 +89,19 @@ export default function Hero() {
         <div className="flex flex-col gap-4 pt-4 md:pt-0 md:w-2/3">
           <h1 className="text-4xl font-bold">
             Hi, I&apos;m {name} —{' '}
-            <span className="text-secondary">{title}</span>
+            <span className="bg-gradient-to-r from-neutral-600 to-neutral-400 dark:from-neutral-300 dark:to-neutral-500 bg-clip-text text-transparent">
+              {title}
+            </span>
           </h1>
 
           <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2 text-base whitespace-pre-wrap text-neutral-500 md:text-lg">
             {renderDescription()}
           </div>
-          <p className="text-secondary text-base leading-relaxed mt-2 md:text-lg">
-            I&apos;m a results-driven Software Engineer specialized in building
-            high-performance, scalable web applications. Certified React
-            Developer from ITI with deep expertise in Next.js 14, React 19, and
-            real-time communication systems. Currently a third-year Computer
-            Science student at Kafr Elsheikh University.
+          <p className="text-secondary text-base leading-relaxed mt-2 max-w-xl md:text-lg">
+            Certified React Developer from ITI, currently pursuing Computer
+            Science at Kafr Elsheikh University. Focused on building
+            high-performance applications with Next.js 14, React 19, and
+            real-time communication systems.
           </p>
 
           {/* Buttons */}
@@ -113,8 +114,10 @@ export default function Hero() {
                   key={index}
                   variant={button.variant as 'outline' | 'default'}
                   className={cn(
-                    button.variant === 'outline' && 'inset-shadow-indigo-500',
-                    button.variant === 'default' && 'inset-shadow-indigo-500',
+                    'transition-all duration-300',
+                    button.variant === 'default' &&
+                      'shadow-md hover:shadow-lg hover:scale-[1.02]',
+                    button.variant === 'outline' && 'hover:bg-muted',
                   )}
                 >
                   {IconComponent && <IconComponent />}

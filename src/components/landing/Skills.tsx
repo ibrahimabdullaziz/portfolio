@@ -57,7 +57,7 @@ export default function Skills() {
   return (
     <Container id="skills" className="mt-20 overflow-hidden">
       <SectionHeading subHeading="Technologies & Tools" heading="Skills" />
-      <div className="mt-12 flex flex-col gap-8">
+      <div className="mt-8 flex flex-col gap-4">
         <InfiniteSlider direction="left" speed="normal">
           {topRowSkills.map((skill) => (
             <Tooltip key={skill.name}>

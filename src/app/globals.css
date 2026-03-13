@@ -124,7 +124,7 @@
 }
 
 .text-secondary {
-  @apply text-[#767678] dark:text-[#909092];
+  @apply text-[#5c5c5e] dark:text-[#a0a0a2];
 }
 
 .font-hanken-grotesk {
@@ -199,6 +199,10 @@
     animation: none;
     opacity: 1;
     filter: none;
+  }
+  .animate-marquee-left,
+  .animate-marquee-right {
+    animation: none;
   }
 }
 
