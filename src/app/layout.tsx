@@ -1,4 +1,3 @@
-import UmamiAnalytics from '@/components/analytics/UmamiAnalytics';
 import Footer from '@/components/common/Footer';
 import LenisProvider from '@/components/common/LenisProvider';
 import Navbar from '@/components/common/Navbar';
@@ -50,8 +49,6 @@ export default function RootLayout({
           />
         </head>
         <body className="font-hanken-grotesk bg-background text-foreground antialiased">
-          <UmamiAnalytics />
-
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

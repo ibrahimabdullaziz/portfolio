@@ -20,15 +20,20 @@ export default function Typewriter({
   const [isDeleting, setIsDeleting] = useState(false);
 
   // Respect prefers-reduced-motion
-  const prefersReducedMotion =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (prefersReducedMotion) {
-    return <span>{strings[0]}</span>;
-  }
+  const [shouldAnimate, setShouldAnimate] = useState(true);
 
   useEffect(() => {
+    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setShouldAnimate(!mql.matches);
+
+    const handler = (e: MediaQueryListEvent) => setShouldAnimate(!e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    if (!shouldAnimate) return;
+
     const timeout = setTimeout(
       () => {
         const fullText = strings[currentStringIndex];
@@ -60,7 +65,12 @@ export default function Typewriter({
     delay,
     typeSpeed,
     deleteSpeed,
+    shouldAnimate,
   ]);
+
+  if (!shouldAnimate) {
+    return <span>{strings[0]}</span>;
+  }
 
   return (
     <span className="inline-flex items-center">

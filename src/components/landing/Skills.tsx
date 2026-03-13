@@ -8,6 +8,7 @@ import Convex from '@/components/technologies/Convex';
 import FramerMotion from '@/components/technologies/FramerMotion';
 import HTML5 from '@/components/technologies/HTML5';
 import JavaScript from '@/components/technologies/JavaScript';
+import Jest from '@/components/technologies/Jest';
 import MongoDB from '@/components/technologies/MongoDB';
 import Netlify from '@/components/technologies/Netlify';
 import NextJs from '@/components/technologies/NextJs';
@@ -35,6 +36,7 @@ export const allSkills = [
   { name: 'Next.js', icon: <NextJs key="nextjs" /> },
   { name: 'Redux Toolkit', icon: <Redux key="redux" /> },
   { name: 'TanStack Query', icon: <ReactQuery key="reactquery" /> },
+  { name: 'Jest', icon: <Jest key="jest" /> },
   { name: 'Node.js', icon: <NodeJs key="nodejs" /> },
   { name: 'Tailwind CSS', icon: <TailwindCss key="tailwindcss" /> },
   { name: 'Shadcn UI', icon: <Shadcn key="shadcn" /> },

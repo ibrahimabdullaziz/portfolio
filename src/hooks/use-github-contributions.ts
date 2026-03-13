@@ -117,7 +117,9 @@ export function useGithubContributions() {
           setHasError(true);
         }
       } catch (err) {
-        console.error('Failed to fetch GitHub contributions:', err);
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Failed to fetch GitHub contributions:', err);
+        }
         setHasError(true);
       } finally {
         setIsLoading(false);

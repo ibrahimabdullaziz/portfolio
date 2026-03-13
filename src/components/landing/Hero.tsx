@@ -21,7 +21,7 @@ const buttonIcons = {
 export default function Hero() {
   const { name, title, skills, description, buttons } = heroConfig;
 
-  const renderDescription = () => {
+  const descriptionContent = React.useMemo(() => {
     const parts = parseTemplate(description.template, skills);
 
     return parts.map((part) => {
@@ -48,7 +48,7 @@ export default function Hero() {
       }
       return null;
     });
-  };
+  }, [description.template, skills]);
 
   return (
     <Container id="home" className="mx-auto max-w-5xl">
@@ -104,7 +104,7 @@ export default function Hero() {
           </h1>
 
           <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2 text-base whitespace-pre-wrap text-neutral-500 md:text-lg">
-            {renderDescription()}
+            {descriptionContent}
           </div>
           <p className="text-secondary text-base leading-relaxed mt-2 max-w-xl md:text-lg">
             Certified React Developer from ITI, currently pursuing Computer

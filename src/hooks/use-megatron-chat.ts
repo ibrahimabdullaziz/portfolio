@@ -28,9 +28,15 @@ export function useMegatronChat(open: boolean) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null); // Added scrollAreaRef
   const { triggerHaptic, isMobile } = useHapticFeedback();
+  const messageIdRef = useRef(100);
+
+  const nextId = () => {
+    messageIdRef.current += 1;
+    return messageIdRef.current;
+  };
 
   // Auto-scroll logic
   useEffect(() => {
@@ -161,7 +167,7 @@ export function useMegatronChat(open: boolean) {
 
       const messageText = textToSend.trim();
       const userMessage: Message = {
-        id: Date.now(),
+        id: nextId(),
         text: messageText,
         sender: 'user',
         timestamp: new Date().toLocaleTimeString([], {
@@ -170,7 +176,7 @@ export function useMegatronChat(open: boolean) {
         }),
       };
 
-      const botMessageId = Date.now() + 1;
+      const botMessageId = nextId();
       const botMessage: Message = {
         id: botMessageId,
         text: '',
