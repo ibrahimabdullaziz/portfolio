@@ -186,12 +186,35 @@ export default function Github() {
 
         {/* Content */}
         {isLoading ? (
-          <div className="flex items-center justify-center py-16">
-            <div className="text-center">
-              <div className="border-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-t-transparent"></div>
-              <p className="text-muted-foreground text-sm">
-                {githubConfig.loadingState.description}
-              </p>
+          <div className="relative overflow-hidden">
+            <div className="bg-background/50 relative rounded-lg border border-dashed border-black/20 p-6 backdrop-blur-sm dark:border-white/10">
+              <div className="w-full overflow-x-auto">
+                <div className="flex flex-col gap-4">
+                  <div className="flex gap-1">
+                    {Array.from({ length: 52 }).map((_, i) => (
+                      <div key={i} className="flex flex-col gap-1">
+                        {Array.from({ length: 7 }).map((_, j) => (
+                          <div
+                            key={j}
+                            className="bg-muted h-3 w-3 animate-pulse rounded-sm"
+                          />
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="bg-muted h-3 w-24 animate-pulse rounded-sm" />
+                    <div className="flex gap-1">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="bg-muted h-3 w-3 animate-pulse rounded-sm"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         ) : hasError || contributions.length === 0 ? (

@@ -148,6 +148,22 @@ const ChatBubble: React.FC = () => {
     sendMessage(suggestion, botMessageId);
   };
 
+  // Handle Escape key to close chat
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        const chatToggle = document.querySelector(
+          '[data-chat-toggle="true"]',
+        ) as HTMLButtonElement;
+        if (chatToggle && chatToggle.getAttribute('aria-expanded') === 'true') {
+          chatToggle.click();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const sendMessage = async (messageText: string, botMessageId: number) => {
     try {
       // Prepare conversation history for Gemini API format
@@ -297,7 +313,11 @@ const ChatBubble: React.FC = () => {
                       <AvatarFallback>AI</AvatarFallback>
                     </Avatar>
                   )}
-                  <div className="max-w-xs flex-1 md:max-w-sm">
+                  <div
+                    className="max-w-xs flex-1 md:max-w-sm"
+                    aria-live={message.isStreaming ? 'polite' : 'off'}
+                    aria-atomic="true"
+                  >
                     <div className="flex items-center gap-2">
                       <div className="prose prose-sm dark:prose-invert max-w-none flex-1">
                         {message.text ? (
