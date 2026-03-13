@@ -1,11 +1,14 @@
 import Container from '@/components/common/Container';
-import Achievements from '@/components/landing/Achievements';
-import CTA from '@/components/landing/CTA';
-import Github from '@/components/landing/Github';
 import Hero from '@/components/landing/Hero';
 import Work from '@/components/landing/Projects';
 import Skills from '@/components/landing/Skills';
+import dynamic from 'next/dynamic';
 import React from 'react';
+
+// Lazy-load below-the-fold sections to reduce LCP bundle size
+const Achievements = dynamic(() => import('@/components/landing/Achievements'));
+const Github = dynamic(() => import('@/components/landing/Github'));
+const CTA = dynamic(() => import('@/components/landing/CTA'));
 
 export default function Page() {
   return (

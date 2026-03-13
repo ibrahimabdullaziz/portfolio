@@ -16,7 +16,7 @@ import { type Project } from '@/types/project';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import ArrowRight from '../svgs/ArrowRight';
 import Github from '../svgs/Github';
@@ -42,22 +42,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['5deg', '-5deg']);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-5deg', '5deg']);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      x.set((e.clientX - rect.left) / rect.width - 0.5);
+      y.set((e.clientY - rect.top) / rect.height - 0.5);
+    },
+    [x, y],
+  );
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     x.set(0);
     y.set(0);
-  };
+  }, [x, y]);
 
   return (
     <motion.div

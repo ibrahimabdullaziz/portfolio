@@ -14,7 +14,13 @@ import { chatSuggestions } from '@/config/ChatPrompt';
 import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
 import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'motion/react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import SendIcon from '../svgs/SendIcon';
@@ -77,50 +83,57 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
     return () => clearTimeout(timeoutId);
   }, [messages, open, isLoading]);
 
-  const handleSendMessage = async (textOverride?: string) => {
-    const textToSend = textOverride || newMessage;
-    if (!textToSend.trim() || isLoading) return;
+  const handleSendMessage = useCallback(
+    async (textOverride?: string) => {
+      const textToSend = textOverride || newMessage;
+      if (!textToSend.trim() || isLoading) return;
 
-    if (isMobile()) {
-      triggerHaptic('light');
-    }
+      if (isMobile()) {
+        triggerHaptic('light');
+      }
 
-    const messageText = textToSend.trim();
-    const userMessage: Message = {
-      id: Date.now(),
-      text: messageText,
-      sender: 'user',
-      timestamp: new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      }),
-    };
+      const messageText = textToSend.trim();
+      const userMessage: Message = {
+        id: Date.now(),
+        text: messageText,
+        sender: 'user',
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+      };
 
-    const botMessageId = Date.now() + 1;
-    const botMessage: Message = {
-      id: botMessageId,
-      text: '',
-      sender: 'bot',
-      timestamp: new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      }),
-      isStreaming: true,
-    };
+      const botMessageId = Date.now() + 1;
+      const botMessage: Message = {
+        id: botMessageId,
+        text: '',
+        sender: 'bot',
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+        isStreaming: true,
+      };
 
-    // Correctly update state once with both messages
-    const updatedMessages: Message[] = [...messages, userMessage, botMessage];
-    setMessages(updatedMessages);
-    setNewMessage('');
-    setIsLoading(true);
+      // Correctly update state once with both messages
+      const updatedMessages: Message[] = [...messages, userMessage, botMessage];
+      setMessages(updatedMessages);
+      setNewMessage('');
+      setIsLoading(true);
 
-    await sendMessage(messageText, botMessageId, updatedMessages);
-  };
+      await sendMessage(messageText, botMessageId, updatedMessages);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [messages, newMessage, isLoading, isMobile, triggerHaptic],
+  );
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSendMessage();
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      handleSendMessage();
+    },
+    [handleSendMessage],
+  );
 
   const sendMessage = async (
     messageText: string,
@@ -210,14 +223,14 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
           }
         }
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error sending message:', error);
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === botMessageId
             ? {
                 ...msg,
-                text: `My communication arrays are experiencing interference: ${error.message || 'Connection lost'}. Please try again shortly.`,
+                text: `My communication arrays are experiencing interference: ${error instanceof Error ? error.message : 'Connection lost'}. Please try again shortly.`,
                 isStreaming: false,
               }
             : msg,

@@ -19,6 +19,15 @@ export default function Typewriter({
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Respect prefers-reduced-motion
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    return <span>{strings[0]}</span>;
+  }
+
   useEffect(() => {
     const timeout = setTimeout(
       () => {
