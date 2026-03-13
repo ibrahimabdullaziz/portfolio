@@ -10,40 +10,12 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { chatSuggestions } from '@/config/ChatPrompt';
-import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
-import { cn } from '@/lib/utils';
+import { useMegatronChat } from '@/hooks/use-megatron-chat';
 import { AnimatePresence, motion } from 'motion/react';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import ReactMarkdown from 'react-markdown';
+import React from 'react';
 
+import { MegatronMessageBubble } from '../chat/MegatronMessageBubble';
 import SendIcon from '../svgs/SendIcon';
-
-interface Message {
-  id: number;
-  text: string;
-  sender: 'user' | 'bot';
-  timestamp: string;
-  isStreaming?: boolean;
-}
-
-const initialMessages: Message[] = [
-  {
-    id: 1,
-    text: "Greetings. I am **Megatron**, Ibrahim's elite AI assistant. How may I assist your exploration of this portfolio today?",
-    sender: 'bot',
-    timestamp: new Date().toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
-  },
-];
 
 interface MegatronChatProps {
   open: boolean;
@@ -51,195 +23,17 @@ interface MegatronChatProps {
 }
 
 const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const [newMessage, setNewMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const { triggerHaptic, isMobile } = useHapticFeedback();
-
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  // Auto-scroll to bottom when new messages are added
-  useEffect(() => {
-    const scrollToBottom = () => {
-      if (messagesEndRef.current) {
-        messagesEndRef.current.scrollIntoView({
-          behavior: isLoading ? 'auto' : 'smooth',
-          block: 'end',
-        });
-      }
-
-      if (scrollAreaRef.current) {
-        const scrollElement = scrollAreaRef.current.querySelector(
-          '[data-slot="scroll-area-viewport"]',
-        );
-        if (scrollElement) {
-          scrollElement.scrollTop = scrollElement.scrollHeight;
-        }
-      }
-    };
-
-    const timeoutId = setTimeout(scrollToBottom, 50);
-    return () => clearTimeout(timeoutId);
-  }, [messages, open, isLoading]);
-
-  const handleSendMessage = useCallback(
-    async (textOverride?: string) => {
-      const textToSend = textOverride || newMessage;
-      if (!textToSend.trim() || isLoading) return;
-
-      if (isMobile()) {
-        triggerHaptic('light');
-      }
-
-      const messageText = textToSend.trim();
-      const userMessage: Message = {
-        id: Date.now(),
-        text: messageText,
-        sender: 'user',
-        timestamp: new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-      };
-
-      const botMessageId = Date.now() + 1;
-      const botMessage: Message = {
-        id: botMessageId,
-        text: '',
-        sender: 'bot',
-        timestamp: new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-        isStreaming: true,
-      };
-
-      // Correctly update state once with both messages
-      const updatedMessages: Message[] = [...messages, userMessage, botMessage];
-      setMessages(updatedMessages);
-      setNewMessage('');
-      setIsLoading(true);
-
-      await sendMessage(messageText, botMessageId, updatedMessages);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },
-    [messages, newMessage, isLoading, isMobile, triggerHaptic],
-  );
-
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      handleSendMessage();
-    },
-    [handleSendMessage],
-  );
-
-  const sendMessage = async (
-    messageText: string,
-    botMessageId: number,
-    currentMessages: Message[],
-  ) => {
-    try {
-      // Filter and ensure history starts with 'user'
-      const rawHistory = currentMessages
-        .filter((msg) => msg.id !== botMessageId)
-        .slice(-11);
-
-      let startIndex = 0;
-      while (
-        startIndex < rawHistory.length &&
-        rawHistory[startIndex].sender !== 'user'
-      ) {
-        startIndex++;
-      }
-
-      const history = rawHistory.slice(startIndex).map((msg) => ({
-        role: msg.sender === 'user' ? ('user' as const) : ('model' as const),
-        parts: [{ text: msg.text }],
-      }));
-
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: messageText,
-          history,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(
-          errorData.error || `HTTP error! status: ${response.status}`,
-        );
-      }
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-
-      if (!reader) {
-        throw new Error('No reader available');
-      }
-
-      let accumulatedText = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n');
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const data = JSON.parse(line.slice(6));
-              if (data.text) {
-                accumulatedText += data.text;
-                setMessages((prev) =>
-                  prev.map((msg) =>
-                    msg.id === botMessageId
-                      ? { ...msg, text: accumulatedText, isStreaming: true }
-                      : msg,
-                  ),
-                );
-              }
-              if (data.done) {
-                setMessages((prev) =>
-                  prev.map((msg) =>
-                    msg.id === botMessageId
-                      ? { ...msg, text: accumulatedText, isStreaming: false }
-                      : msg,
-                  ),
-                );
-                break;
-              }
-            } catch {
-              continue;
-            }
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error sending message:', error);
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === botMessageId
-            ? {
-                ...msg,
-                text: `My communication arrays are experiencing interference: ${error instanceof Error ? error.message : 'Connection lost'}. Please try again shortly.`,
-                isStreaming: false,
-              }
-            : msg,
-        ),
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {
+    messages,
+    newMessage,
+    setNewMessage,
+    isLoading,
+    scrollAreaRef,
+    messagesEndRef,
+    handleSendMessage,
+    handleSubmit,
+    chatSuggestions,
+  } = useMegatronChat(open);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -261,7 +55,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                 Megatron
               </DialogTitle>
               <p className="text-muted-foreground text-xs font-medium">
-                Ibrahim&apos;s AI Entity • Online
+                Ibrahim&apos;s AI Assistant • Online
               </p>
             </div>
           </div>
@@ -272,7 +66,6 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
           data-lenis-prevent
           className="flex-1 min-h-0 p-4 md:p-6 bg-linear-to-b from-transparent to-primary/5 relative"
         >
-          {/* Subtle Background Pattern */}
           <div
             className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
             style={{
@@ -285,91 +78,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
           <div className="space-y-6 relative z-10">
             <AnimatePresence initial={false}>
               {messages.map((message) => (
-                <motion.div
-                  key={message.id}
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                  className={cn(
-                    'flex w-full flex-col gap-1',
-                    message.sender === 'user' ? 'items-end' : 'items-start',
-                  )}
-                >
-                  <div
-                    className={cn(
-                      'max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm transition-all duration-300',
-                      message.sender === 'user'
-                        ? 'bg-neutral-800 text-white dark:bg-neutral-200 dark:text-neutral-900 rounded-tr-none shadow-neutral-500/20'
-                        : 'bg-background/40 backdrop-blur-md border border-primary/10 rounded-tl-none shadow-black/5 dark:shadow-white/5',
-                    )}
-                    aria-live={message.isStreaming ? 'polite' : 'off'}
-                    aria-atomic="true"
-                  >
-                    <div
-                      className={cn(
-                        'prose prose-sm max-w-none',
-                        message.sender === 'bot'
-                          ? 'dark:prose-invert'
-                          : 'text-current prose-p:text-current prose-a:text-current prose-strong:text-current',
-                      )}
-                    >
-                      {message.text ? (
-                        <ReactMarkdown
-                          components={{
-                            a: (props) => (
-                              <a
-                                {...props}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-inherit underline underline-offset-2 hover:opacity-80 font-bold"
-                              />
-                            ),
-                            p: (props) => (
-                              <p {...props} className="m-0 leading-relaxed" />
-                            ),
-                          }}
-                        >
-                          {message.text}
-                        </ReactMarkdown>
-                      ) : (
-                        message.isStreaming && (
-                          <div className="flex gap-1 py-1">
-                            <motion.span
-                              animate={{ y: [0, -4, 0] }}
-                              transition={{
-                                duration: 0.6,
-                                repeat: Infinity,
-                                delay: 0,
-                              }}
-                              className="h-1.5 w-1.5 rounded-full bg-primary/40"
-                            />
-                            <motion.span
-                              animate={{ y: [0, -4, 0] }}
-                              transition={{
-                                duration: 0.6,
-                                repeat: Infinity,
-                                delay: 0.1,
-                              }}
-                              className="h-1.5 w-1.5 rounded-full bg-primary/60"
-                            />
-                            <motion.span
-                              animate={{ y: [0, -4, 0] }}
-                              transition={{
-                                duration: 0.6,
-                                repeat: Infinity,
-                                delay: 0.2,
-                              }}
-                              className="h-1.5 w-1.5 rounded-full bg-primary/80"
-                            />
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-muted-foreground font-medium px-1">
-                    {message.timestamp}
-                  </span>
-                </motion.div>
+                <MegatronMessageBubble key={message.id} message={message} />
               ))}
             </AnimatePresence>
 

@@ -71,7 +71,6 @@ export default function Hero() {
                 <TooltipTrigger asChild>
                   <Link
                     href={link.href}
-                    key={link.name}
                     aria-label={link.name}
                     className="text-secondary flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-full hover:text-primary hover:bg-primary/5 transition-all duration-200"
                   >

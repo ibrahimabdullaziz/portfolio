@@ -1,4 +1,5 @@
 import Container from '@/components/common/Container';
+import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import Hero from '@/components/landing/Hero';
 import Work from '@/components/landing/Projects';
 import Skills from '@/components/landing/Skills';
@@ -13,12 +14,24 @@ const CTA = dynamic(() => import('@/components/landing/CTA'));
 export default function Page() {
   return (
     <Container className="min-h-screen py-16">
-      <Hero />
-      <Skills />
-      <Work />
-      <Achievements />
-      <Github />
-      <CTA />
+      <ErrorBoundary>
+        <Hero />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Skills />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Work />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Achievements />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Github />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <CTA />
+      </ErrorBoundary>
     </Container>
   );
 }
