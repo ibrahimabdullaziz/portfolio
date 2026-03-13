@@ -95,7 +95,7 @@ export default function Hero() {
                 strings={[
                   title,
                   'A Real-Time Systems Specialist.',
-                  'An Open Source Contributor.',
+                  'A Frontend Developer.',
                 ]}
                 delay={2000}
                 typeSpeed={80}

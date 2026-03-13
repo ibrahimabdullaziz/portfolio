@@ -141,7 +141,11 @@ export default function ContactForm() {
                     <FormItem>
                       <FormLabel>Name *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your full name" {...field} />
+                        <Input
+                          autoFocus
+                          placeholder="Your full name"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

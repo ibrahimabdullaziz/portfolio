@@ -69,6 +69,7 @@ export default function CertificatesGallery({
                   src={cert.file}
                   alt={cert.title || 'certificate'}
                   fill
+                  quality={85}
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -120,6 +121,7 @@ export default function CertificatesGallery({
                       'certificate'
                     }
                     fill
+                    quality={85}
                     className="rounded-lg object-contain"
                   />
                 </div>

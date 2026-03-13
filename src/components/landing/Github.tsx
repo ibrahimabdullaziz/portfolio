@@ -188,8 +188,8 @@ export default function Github() {
         {isLoading ? (
           <div className="relative overflow-hidden">
             <div className="bg-background/50 relative rounded-lg border border-dashed border-black/20 p-6 backdrop-blur-sm dark:border-white/10">
-              <div className="w-full overflow-x-auto">
-                <div className="flex flex-col gap-4">
+              <div className="w-full overflow-x-auto min-h-[188px] flex items-center">
+                <div className="flex flex-col gap-4 w-full">
                   <div className="flex gap-1">
                     {Array.from({ length: 52 }).map((_, i) => (
                       <div key={i} className="flex flex-col gap-1">
@@ -239,7 +239,7 @@ export default function Github() {
         ) : (
           <div className="relative overflow-hidden">
             <div className="bg-background/50 relative rounded-lg border border-dashed border-black/20 p-6 backdrop-blur-sm dark:border-white/10">
-              <div className="w-full overflow-x-auto">
+              <div className="w-full overflow-x-auto min-h-[188px] flex items-center">
                 <ActivityCalendar
                   data={contributions}
                   blockSize={12}

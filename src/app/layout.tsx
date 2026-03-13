@@ -29,7 +29,7 @@ export default function RootLayout({
       <html
         lang="en"
         suppressHydrationWarning
-        className={`${hanken.variable} scroll-smooth`}
+        className={`${hanken.variable} scroll-smooth scroll-pt-24`}
       >
         <head>
           <script
@@ -60,9 +60,17 @@ export default function RootLayout({
           >
             <LenisProvider>
               <div className="relative flex min-h-screen flex-col">
+                <a
+                  href="#main-content"
+                  className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-background focus:text-primary focus:font-bold focus:shadow-md focus:rounded-br-md left-0 top-0"
+                >
+                  Skip to main content
+                </a>
                 <Navbar />
 
-                <main className="flex-1">{children}</main>
+                <main id="main-content" className="flex-1">
+                  {children}
+                </main>
 
                 <OnekoCat />
                 <Quote />
