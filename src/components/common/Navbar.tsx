@@ -49,9 +49,9 @@ export default function Navbar() {
             onClick={() => setIsMegatronOpen(true)}
             variant="outline"
             size="sm"
-            className="hidden sm:flex items-center gap-2 rounded-full border-primary/20 bg-primary/5 hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-sm overflow-hidden group px-1 pr-3"
+            className="hidden sm:flex items-center gap-2 rounded-full border-primary/20 bg-primary/5 hover:bg-primary/20 transition-all duration-300 shadow-sm overflow-hidden group px-1 pr-3"
           >
-            <div className="relative h-7 w-7 rounded-full border border-primary/30 group-hover:border-primary-foreground/30 transition-colors">
+            <div className="relative h-7 w-7 rounded-full border border-primary/30 group-hover:border-primary/50 transition-colors">
               <Image
                 src="/assets/megatron.png"
                 alt="Megatron"
@@ -59,7 +59,7 @@ export default function Navbar() {
                 className="object-cover rounded-full"
               />
             </div>
-            <span className="font-bold tracking-tight text-xs uppercase">
+            <span className="font-bold tracking-tight text-xs uppercase text-foreground">
               Ask Megatron
             </span>
           </Button>

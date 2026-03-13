@@ -1,4 +1,5 @@
 import Container from '@/components/common/Container';
+import InfiniteSlider from '@/components/common/InfiniteSlider';
 import SectionHeading from '@/components/common/SectionHeading';
 import Github from '@/components/svgs/Github';
 import CPlusPlus from '@/components/technologies/CPlusPlus';
@@ -49,26 +50,51 @@ export const allSkills = [
 ];
 
 export default function Skills() {
+  const midpoint = Math.ceil(allSkills.length / 2);
+  const topRowSkills = allSkills.slice(0, midpoint);
+  const bottomRowSkills = allSkills.slice(midpoint);
+
   return (
-    <Container id="skills" className="mt-20">
+    <Container id="skills" className="mt-20 overflow-hidden">
       <SectionHeading subHeading="Technologies & Tools" heading="Skills" />
-      <div className="mt-8 flex flex-wrap gap-4">
-        {allSkills.map((skill) => (
-          <Tooltip key={skill.name}>
-            <TooltipTrigger asChild>
-              <div
-                role="img"
-                aria-label={skill.name}
-                className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-100 p-2 hover:bg-neutral-200 hover:cursor-pointer dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800 transition-colors"
-              >
-                {skill.icon}
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{skill.name}</p>
-            </TooltipContent>
-          </Tooltip>
-        ))}
+      <div className="mt-12 flex flex-col gap-8">
+        <InfiniteSlider direction="left" speed="normal">
+          {topRowSkills.map((skill) => (
+            <Tooltip key={skill.name}>
+              <TooltipTrigger asChild>
+                <div
+                  role="img"
+                  aria-label={skill.name}
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100/50 p-2.5 backdrop-blur-sm transition-all hover:scale-110 hover:bg-neutral-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-800 dark:hover:shadow-neutral-900/50"
+                >
+                  {skill.icon}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{skill.name}</p>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </InfiniteSlider>
+
+        <InfiniteSlider direction="right" speed="normal">
+          {bottomRowSkills.map((skill) => (
+            <Tooltip key={skill.name}>
+              <TooltipTrigger asChild>
+                <div
+                  role="img"
+                  aria-label={skill.name}
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100/50 p-2.5 backdrop-blur-sm transition-all hover:scale-110 hover:bg-neutral-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-800 dark:hover:shadow-neutral-900/50"
+                >
+                  {skill.icon}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{skill.name}</p>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </InfiniteSlider>
       </div>
     </Container>
   );

@@ -286,13 +286,20 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                     className={cn(
                       'max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm transition-all duration-300',
                       message.sender === 'user'
-                        ? 'bg-primary text-primary-foreground rounded-tr-none shadow-primary/20'
+                        ? 'bg-neutral-800 text-white dark:bg-neutral-200 dark:text-neutral-900 rounded-tr-none shadow-neutral-500/20'
                         : 'bg-background/40 backdrop-blur-md border border-primary/10 rounded-tl-none shadow-black/5 dark:shadow-white/5',
                     )}
                     aria-live={message.isStreaming ? 'polite' : 'off'}
                     aria-atomic="true"
                   >
-                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                    <div
+                      className={cn(
+                        'prose prose-sm max-w-none',
+                        message.sender === 'bot'
+                          ? 'dark:prose-invert'
+                          : 'text-current prose-p:text-current prose-a:text-current prose-strong:text-current',
+                      )}
+                    >
                       {message.text ? (
                         <ReactMarkdown
                           components={{
