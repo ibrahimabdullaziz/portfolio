@@ -6,6 +6,7 @@ export interface Project {
   link: string;
   technologies: { name: string; icon: React.ReactNode }[];
   github?: string;
+  linkedin?: string;
   live: string;
   details: boolean;
   projectDetailsPageSlug: string;

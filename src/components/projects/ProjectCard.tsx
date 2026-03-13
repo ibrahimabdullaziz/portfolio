@@ -19,6 +19,7 @@ import React, { useState } from 'react';
 
 import ArrowRight from '../svgs/ArrowRight';
 import Github from '../svgs/Github';
+import LinkedIn from '../svgs/LinkedIn';
 import PlayCircle from '../svgs/PlayCircle';
 import Website from '../svgs/Website';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
@@ -105,6 +106,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>View GitHub</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger>
+                  {project.linkedin && (
+                    <Link
+                      className="text-secondary hover:text-primary flex size-6 items-center justify-center transition-colors"
+                      href={project.linkedin}
+                      target="_blank"
+                    >
+                      <LinkedIn />
+                    </Link>
+                  )}
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View LinkedIn Post</p>
                 </TooltipContent>
               </Tooltip>
             </div>

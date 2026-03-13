@@ -13,6 +13,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { chatSuggestions } from '@/config/ChatPrompt';
 import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
 import { cn } from '@/lib/utils';
+import { AnimatePresence, motion } from 'motion/react';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
@@ -256,74 +257,109 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
         <ScrollArea
           ref={scrollAreaRef}
           data-lenis-prevent
-          className="flex-1 min-h-0 p-4 md:p-6 bg-linear-to-b from-transparent to-primary/5"
+          className="flex-1 min-h-0 p-4 md:p-6 bg-linear-to-b from-transparent to-primary/5 relative"
         >
-          <div className="space-y-6">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={cn(
-                  'flex w-full flex-col gap-1',
-                  message.sender === 'user' ? 'items-end' : 'items-start',
-                )}
-              >
-                <div
+          {/* Subtle Background Pattern */}
+          <div
+            className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+            style={{
+              backgroundImage:
+                'radial-gradient(var(--primary) 0.5px, transparent 0.5px)',
+              backgroundSize: '24px 24px',
+            }}
+          />
+
+          <div className="space-y-6 relative z-10">
+            <AnimatePresence initial={false}>
+              {messages.map((message) => (
+                <motion.div
+                  key={message.id}
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
                   className={cn(
-                    'max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm transition-all duration-300',
-                    message.sender === 'user'
-                      ? 'bg-primary text-primary-foreground rounded-tr-none'
-                      : 'bg-muted/80 backdrop-blur-sm border border-primary/10 rounded-tl-none',
+                    'flex w-full flex-col gap-1',
+                    message.sender === 'user' ? 'items-end' : 'items-start',
                   )}
-                  aria-live={message.isStreaming ? 'polite' : 'off'}
-                  aria-atomic="true"
                 >
-                  <div className="prose prose-sm dark:prose-invert max-w-none">
-                    {message.text ? (
-                      <ReactMarkdown
-                        components={{
-                          a: (props) => (
-                            <a
-                              {...props}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-primary-foreground underline underline-offset-2 hover:opacity-80 font-bold"
-                            />
-                          ),
-                          p: (props) => (
-                            <p {...props} className="m-0 leading-relaxed" />
-                          ),
-                        }}
-                      >
-                        {message.text}
-                      </ReactMarkdown>
-                    ) : (
-                      message.isStreaming && (
-                        <div className="flex gap-1 py-1">
-                          <span
-                            className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary/40"
-                            style={{ animationDelay: '0ms' }}
-                          />
-                          <span
-                            className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary/60"
-                            style={{ animationDelay: '150ms' }}
-                          />
-                          <span
-                            className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary/80"
-                            style={{ animationDelay: '300ms' }}
-                          />
-                        </div>
-                      )
+                  <div
+                    className={cn(
+                      'max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm transition-all duration-300',
+                      message.sender === 'user'
+                        ? 'bg-primary text-primary-foreground rounded-tr-none shadow-primary/20'
+                        : 'bg-background/40 backdrop-blur-md border border-primary/10 rounded-tl-none shadow-black/5 dark:shadow-white/5',
                     )}
+                    aria-live={message.isStreaming ? 'polite' : 'off'}
+                    aria-atomic="true"
+                  >
+                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                      {message.text ? (
+                        <ReactMarkdown
+                          components={{
+                            a: (props) => (
+                              <a
+                                {...props}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-inherit underline underline-offset-2 hover:opacity-80 font-bold"
+                              />
+                            ),
+                            p: (props) => (
+                              <p {...props} className="m-0 leading-relaxed" />
+                            ),
+                          }}
+                        >
+                          {message.text}
+                        </ReactMarkdown>
+                      ) : (
+                        message.isStreaming && (
+                          <div className="flex gap-1 py-1">
+                            <motion.span
+                              animate={{ y: [0, -4, 0] }}
+                              transition={{
+                                duration: 0.6,
+                                repeat: Infinity,
+                                delay: 0,
+                              }}
+                              className="h-1.5 w-1.5 rounded-full bg-primary/40"
+                            />
+                            <motion.span
+                              animate={{ y: [0, -4, 0] }}
+                              transition={{
+                                duration: 0.6,
+                                repeat: Infinity,
+                                delay: 0.1,
+                              }}
+                              className="h-1.5 w-1.5 rounded-full bg-primary/60"
+                            />
+                            <motion.span
+                              animate={{ y: [0, -4, 0] }}
+                              transition={{
+                                duration: 0.6,
+                                repeat: Infinity,
+                                delay: 0.2,
+                              }}
+                              className="h-1.5 w-1.5 rounded-full bg-primary/80"
+                            />
+                          </div>
+                        )
+                      )}
+                    </div>
                   </div>
-                </div>
-                <span className="text-[10px] text-muted-foreground font-medium px-1">
-                  {message.timestamp}
-                </span>
-              </div>
-            ))}
+                  <span className="text-[10px] text-muted-foreground font-medium px-1">
+                    {message.timestamp}
+                  </span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
 
             {messages.length === 1 && !isLoading && (
-              <div className="space-y-3 pt-4">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="space-y-3 pt-4"
+              >
                 <p className="text-muted-foreground px-1 text-xs font-semibold uppercase tracking-wider">
                   Suggested Inquiries
                 </p>
@@ -334,42 +370,64 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                       variant="outline"
                       size="sm"
                       onClick={() => handleSendMessage(suggestion)}
-                      className="bg-background/50 hover:bg-primary hover:text-primary-foreground border-primary/20 h-auto py-2 px-3 text-xs font-semibold transition-all duration-300 rounded-full active:scale-90 hover:scale-105 hover:shadow-[0_0_10px_rgba(var(--primary),0.3)]"
+                      className="bg-background/50 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground border-primary/20 h-auto py-2 px-4 text-xs font-semibold transition-all duration-300 rounded-full active:scale-95 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
                     >
                       {suggestion}
                     </Button>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             )}
             <div ref={messagesEndRef} className="h-4" />
           </div>
         </ScrollArea>
 
-        <div className="border-t bg-muted/20 p-4 md:p-6">
+        <div className="border-t bg-muted/30 backdrop-blur-sm p-4 md:p-6">
           <form
             onSubmit={handleSubmit}
-            className="relative flex items-center gap-2"
+            className="relative flex items-center gap-3"
           >
-            <Input
-              placeholder="Query Megatron..."
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              disabled={isLoading}
-              className="pr-12 bg-background border-primary/20 focus-visible:ring-primary/30 h-11 rounded-full shadow-inner"
-            />
-            <Button
-              type="submit"
-              size="icon"
-              disabled={!newMessage.trim() || isLoading}
-              className="absolute right-1 h-9 w-9 rounded-full bg-primary hover:bg-primary/90 hover:scale-105 hover:shadow-[0_0_15px_rgba(var(--primary),0.5)] shadow-md shadow-primary/20 transition-all duration-300 active:scale-95 text-primary-foreground"
-            >
-              {isLoading ? (
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
-              ) : (
-                <SendIcon className="h-4 w-4" />
-              )}
-            </Button>
+            <div className="relative flex-1">
+              <Input
+                placeholder="Query Megatron..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                disabled={isLoading}
+                className="pr-12 bg-background/50 backdrop-blur-sm border-primary/20 focus-visible:ring-primary/30 h-12 rounded-2xl shadow-inner transition-all duration-300 focus:bg-background"
+              />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                <AnimatePresence>
+                  {newMessage.trim() && !isLoading && (
+                    <motion.div
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                    >
+                      <Button
+                        type="submit"
+                        size="icon"
+                        className="h-8 w-8 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
+                      >
+                        <SendIcon className="h-4 w-4" />
+                      </Button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                {isLoading && (
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                )}
+              </div>
+            </div>
+            {!newMessage.trim() && !isLoading && (
+              <Button
+                type="submit"
+                size="icon"
+                disabled
+                className="h-12 w-12 rounded-2xl bg-muted text-muted-foreground transition-all duration-300"
+              >
+                <SendIcon className="h-5 w-5" />
+              </Button>
+            )}
           </form>
         </div>
       </DialogContent>
