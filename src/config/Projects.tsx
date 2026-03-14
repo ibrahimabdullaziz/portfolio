@@ -16,18 +16,18 @@ export const projects: Project[] = [
   {
     title: 'V-Sync',
     description:
-      'Full-stack real-time interview platform featuring collaborative coding with Monaco Editor, HD video/audio conferencing via Stream SDK, and Convex serverless backend.',
+      'An enterprise-grade remote technical interview platform. Engineered to transform the hiring experience by bridging the gap between interviewers and candidates with seamless HD video interaction, real-time code synchronization via Monaco Editor, and a serverless backend powered by Convex and Stream SDK. Features resizable layouts, pre-flight device testing, and integrated assessment loops to eliminate tool context-switching.',
     image: '/assets/projects/vsync.png',
     link: 'https://vedio-sync.netlify.app/',
     technologies: [
-      { name: 'Next.js 14', icon: <NextJs key="nextjs" /> },
+      { name: 'Next.js 15 (App Router)', icon: <NextJs key="nextjs" /> },
       { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
       { name: 'Clerk Auth', icon: <Clerk key="clerk" /> },
       { name: 'Stream Video SDK', icon: <Stream key="stream" /> },
-      { name: 'Convex', icon: <Convex key="convex" /> },
+      { name: 'Convex Serverless', icon: <Convex key="convex" /> },
       { name: 'Monaco Editor', icon: <Monaco key="monaco" /> },
       { name: 'Tailwind CSS', icon: <TailwindCss key="tailwindcss" /> },
-      { name: 'Radix UI (Shadcn)', icon: <Radix key="radix" /> },
+      { name: 'Shadcn/UI', icon: <Radix key="radix" /> },
     ],
     github: 'https://github.com/ibrahimabdullaziz/remote-interview-platform',
     linkedin:
@@ -40,7 +40,7 @@ export const projects: Project[] = [
   {
     title: 'UrMoviez',
     description:
-      'Premium cinematography discovery app built with React 19, achieving 95+ Lighthouse score. Uses TanStack Query v5 for optimized data fetching and Framer Motion for production-grade animations.',
+      'A high-performance cinematic discovery platform built with a Performance-First Mindset. Achieved near-perfect Lighthouse scores (95+) by optimizing the Critical Rendering Path (CRP) and implementing aggressive lazy loading strategies. Powered by React 19 and TanStack Query v5 for sophisticated data fetching, with pixel-perfect animations via Framer Motion.',
     image: '/assets/projects/urmoviez.png',
     link: 'https://urmoviez.netlify.app/',
     technologies: [
