@@ -1,8 +1,7 @@
+import Projects from '@/components/landing/Projects';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-
-import Projects from './Projects';
 
 // Mock dependencies
 vi.mock('@/config/Projects', () => ({
@@ -12,7 +11,7 @@ vi.mock('@/config/Projects', () => ({
   ],
 }));
 
-vi.mock('../projects/ProjectList', () => ({
+vi.mock('@/components/projects/ProjectList', () => ({
   ProjectList: ({ projects }: any) => (
     <div data-testid="project-list">
       {projects.map((p: any) => (

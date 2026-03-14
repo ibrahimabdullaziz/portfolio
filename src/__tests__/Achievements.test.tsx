@@ -1,8 +1,7 @@
+import Achievements from '@/components/landing/Achievements';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-
-import Achievements from './Achievements';
 
 // Mock dependencies
 vi.mock('@/config/Achievements', () => ({
@@ -11,7 +10,7 @@ vi.mock('@/config/Achievements', () => ({
   },
 }));
 
-vi.mock('../CertificatesGallery', () => ({
+vi.mock('@/components/CertificatesGallery', () => ({
   default: ({ certificates }: any) => (
     <div data-testid="cert-gallery">
       {certificates.map((c: any) => (

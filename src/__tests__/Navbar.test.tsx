@@ -1,10 +1,9 @@
+import Navbar from '@/components/common/Navbar';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import Navbar from './Navbar';
 
 // Mock dependencies
 vi.mock('lenis/react', () => ({
@@ -25,15 +24,15 @@ vi.mock('@/config/Navbar', () => ({
 }));
 
 // Mock child components to simplify testing
-vi.mock('./MobileNav', () => ({
+vi.mock('@/components/common/MobileNav', () => ({
   default: () => <div data-testid="mobile-nav" />,
 }));
 
-vi.mock('./MegatronChat', () => ({
+vi.mock('@/components/common/MegatronChat', () => ({
   default: () => <div data-testid="megatron-chat" />,
 }));
 
-vi.mock('./ThemeSwitch', () => ({
+vi.mock('@/components/common/ThemeSwitch', () => ({
   ThemeToggleButton: () => <button data-testid="theme-toggle" />,
 }));
 

@@ -1,3 +1,4 @@
+import Footer from '@/components/common/Footer';
 import { footerConfig } from '@/config/Footer';
 import { socialLinks } from '@/config/Hero';
 import { fireEvent, render, screen } from '@testing-library/react';
@@ -5,8 +6,6 @@ import { useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import Footer from './Footer';
 
 // Mock dependencies
 vi.mock('lenis/react', () => ({

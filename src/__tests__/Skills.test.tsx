@@ -1,8 +1,7 @@
+import Skills, { allSkills } from '@/components/landing/Skills';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-
-import Skills, { allSkills } from './Skills';
 
 // Mock dependencies
 vi.mock('@/components/common/InfiniteSlider', () => ({

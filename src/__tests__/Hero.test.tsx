@@ -1,8 +1,7 @@
+import Hero from '@/components/landing/Hero';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import Hero from './Hero';
 
 // Mock dependencies
 vi.mock('@/config/Hero', () => ({
@@ -35,11 +34,11 @@ vi.mock('@/lib/hero', () => ({
   ]),
 }));
 
-vi.mock('../common/Typewriter', () => ({
+vi.mock('@/components/common/Typewriter', () => ({
   default: ({ strings }: { strings: string[] }) => <span>{strings[0]}</span>,
 }));
 
-vi.mock('../ui/tooltip', () => ({
+vi.mock('@/components/ui/tooltip', () => ({
   Tooltip: ({ children }: any) => <div>{children}</div>,
   TooltipTrigger: ({ children }: any) => <div>{children}</div>,
   TooltipContent: ({ children }: any) => <div>{children}</div>,

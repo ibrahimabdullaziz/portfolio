@@ -1,10 +1,9 @@
+import MobileNav from '@/components/common/MobileNav';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import MobileNav from './MobileNav';
 
 // Mock dependencies
 vi.mock('lenis/react', () => ({
@@ -22,7 +21,7 @@ vi.mock('@/config/Navbar', () => ({
 }));
 
 // Mocking Radix-based Sheet component because it's hard to trigger in JSDOM
-vi.mock('../ui/sheet', () => ({
+vi.mock('@/components/ui/sheet', () => ({
   Sheet: ({ children, open, onOpenChange }: any) => (
     <div data-testid="sheet-root" data-open={open}>
       {children}
