@@ -1,5 +1,5 @@
 import MobileNav from '@/components/common/MobileNav';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
 import React from 'react';

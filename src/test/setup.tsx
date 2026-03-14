@@ -25,7 +25,7 @@ vi.mock('next-view-transitions', () => ({
 // Mock next/image
 vi.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} />,
+  default: (props: any) => <img alt="" {...props} />,
 }));
 
 // Mock lenis/react

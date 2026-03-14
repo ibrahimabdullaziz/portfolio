@@ -1,5 +1,4 @@
 import achievementsConfig from '@/config/Achievements';
-import { footerConfig } from '@/config/Footer';
 import { heroConfig, socialLinks } from '@/config/Hero';
 import { projects } from '@/config/Projects';
 import { describe, expect, it } from 'vitest';
