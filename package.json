@@ -12,7 +12,9 @@
     "format:prettierrcjson": "prettier --config .prettierrc.json --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "format:all": "npm run format:prettierrc && npm run format:prettierrcjson",
     "knip": "knip",
-    "test-telegram": "node src/validate/testTelegram.ts"
+    "test-telegram": "node src/validate/testTelegram.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
@@ -69,15 +71,21 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^25.0.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.1",
     "eslint-config-next": "15.3.4",
+    "jsdom": "^28.1.0",
     "knip": "^5.77.1",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.13",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.4",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
   }
 }

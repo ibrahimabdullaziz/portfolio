@@ -72,22 +72,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <MobileNav onOpenMegatron={() => setIsMegatronOpen(true)} />
 
-          <div className="hidden md:flex items-center gap-8">
-            <Link
-              href="/#home"
-              onClick={(e) => handleLinkClick(e, '/#home')}
-              className="flex items-center gap-2 transition-transform hover:scale-105"
-            >
-              <div className="relative h-10 w-10 overflow-hidden rounded-md border-2 border-secondary bg-blue-300 dark:bg-yellow-300">
-                <Image
-                  src="/assets/logo.png"
-                  alt="Logo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </Link>
-
+          <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center gap-6">
               {navbarConfig.navItems.map((item) => {
                 const sectionId = item.href.replace('/#', '');
