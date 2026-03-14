@@ -25,6 +25,7 @@ vi.mock('next-view-transitions', () => ({
 // Mock next/image
 vi.mock('next/image', () => ({
   __esModule: true,
+  // eslint-disable-next-line @next/next/no-img-element
   default: (props: any) => <img alt="" {...props} />,
 }));
 

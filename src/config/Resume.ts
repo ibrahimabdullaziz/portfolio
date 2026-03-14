@@ -1,3 +1,3 @@
 export const resumeConfig = {
-  url: '/CV - v2.pdf',
+  url: '/cv-v2.pdf',
 };

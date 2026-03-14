@@ -22,7 +22,7 @@ vi.mock('@/config/Navbar', () => ({
 
 // Mocking Radix-based Sheet component because it's hard to trigger in JSDOM
 vi.mock('@/components/ui/sheet', () => ({
-  Sheet: ({ children, open, onOpenChange }: any) => (
+  Sheet: ({ children, open }: any) => (
     <div data-testid="sheet-root" data-open={open}>
       {children}
     </div>
