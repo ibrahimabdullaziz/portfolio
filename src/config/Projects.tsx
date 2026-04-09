@@ -40,7 +40,7 @@ export const projects: Project[] = [
   {
     title: 'UrMoviez',
     description:
-      'A high-performance cinematic discovery platform built with a Performance-First Mindset. Achieved near-perfect Lighthouse scores (95+) by optimizing the Critical Rendering Path (CRP) and implementing aggressive lazy loading strategies. Powered by React 19 and TanStack Query v5 for sophisticated data fetching, with pixel-perfect animations via Framer Motion.',
+      'A high-performance cinematic discovery platform built with a Performance-First Mindset.optimizing the Critical Rendering Path (CRP) and implementing aggressive lazy loading strategies. Powered by React 19 and TanStack Query v5 for sophisticated data fetching, with pixel-perfect animations via Framer Motion.',
     image: '/assets/projects/urmoviez.png',
     link: 'https://urmoviez.netlify.app/',
     technologies: [

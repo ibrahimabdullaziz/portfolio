@@ -31,7 +31,9 @@ describe('ThemeToggleButton Component', () => {
           finished: Promise.resolve(),
           ready: Promise.resolve(),
           updateCallbackDone: Promise.resolve(),
-        };
+          types: new Set(),
+          skipTransition: () => {},
+        } as unknown as ViewTransition;
       };
     }
   });
