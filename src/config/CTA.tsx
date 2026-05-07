@@ -5,5 +5,5 @@ export const ctaConfig = {
   linkText: 'Get in Touch',
   calLink: '',
 
-  preText: "Hey, you scrolled this far, let's talk.",
+  preText: "Let's Build Something Together",
 };

@@ -3,7 +3,10 @@
 import { ctaConfig } from '@/config/CTA';
 import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
 import Cal, { getCalApi } from '@calcom/embed-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Calendar, Mail } from 'lucide-react';
 import Image from 'next/image';
+import { Link } from 'next-view-transitions';
 import { useState } from 'react';
 
 import Container from '../common/Container';
@@ -33,7 +36,7 @@ export default function CTA({
   const { triggerHaptic, isMobile } = useHapticFeedback();
   const [showCalPopup, setShowCalPopup] = useState(false);
 
-  const handleButtonClick = async () => {
+  const handleScheduleClick = async () => {
     if (!calLink) {
       window.location.href = '/contact';
       return;
@@ -42,7 +45,6 @@ export default function CTA({
       triggerHaptic('medium');
     }
 
-    // Lazy-load API only when dialog is opened
     try {
       const calApi = await getCalApi();
       if (calApi) {
@@ -62,54 +64,99 @@ export default function CTA({
 
   return (
     <>
-      <Container className="mt-20 rounded-md border border-dashed border-black/20 py-8 dark:border-white/10">
-        <div className="mt-6 w-full flex-col px-6 pb-8 sm:flex sm:items-center sm:justify-between sm:px-12">
-          <p className="mb-4 text-center text-base opacity-50 sm:mb-3 md:text-xl">
-            {preText}
-          </p>
-          <div className="mt-4 flex w-full justify-center sm:mt-0 sm:w-auto sm:justify-end">
-            <div
-              className="group inline-flex cursor-pointer items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-1 text-sm text-black shadow-[0_0_5px_rgba(0,0,0,0.1)] transition-all dark:border-white/30 dark:bg-white/15 dark:text-white dark:shadow-[0_0_5px_rgba(255,255,255,0.1)]"
-              onClick={handleButtonClick}
+      <Container className="mt-20 mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="relative overflow-hidden rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/5 via-card to-primary/3 p-8 md:p-12"
+        >
+          {/* Background decoration */}
+          <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-primary/5 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-primary/8 blur-3xl" />
+
+          <div className="relative flex flex-col items-center gap-8 md:flex-row md:gap-12">
+            {/* Profile image with glow */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="relative shrink-0"
             >
-              <div className="relative z-20 flex items-center gap-2 transition-all duration-300 group-hover:gap-8">
-                <div className="h-5 w-5 flex-shrink-0 overflow-hidden rounded-full">
-                  <Image
-                    alt={profileAlt}
-                    width={20}
-                    height={20}
-                    className="h-full w-full object-cover"
-                    src={profileImage}
-                    style={{ color: 'transparent' }}
-                  />
-                </div>
-                <div className="absolute left-[24px] flex -translate-x-full transform items-center gap-0 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-3 w-3"
-                  >
-                    <path d="M5 12h14"></path>
-                    <path d="M12 5v14"></path>
-                  </svg>
-                  <div className="mr-2 ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/10 text-[8px] dark:bg-white/10">
-                    You
-                  </div>
-                </div>
-                <span className="relative ml-0 block text-sm font-bold whitespace-nowrap transition-all duration-300 group-hover:ml-4">
-                  {linkText}
-                </span>
+              <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 blur-lg" />
+              <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-primary/20 md:h-28 md:w-28">
+                <Image
+                  alt={profileAlt}
+                  width={112}
+                  height={112}
+                  className="h-full w-full object-cover"
+                  src={profileImage}
+                />
               </div>
+            </motion.div>
+
+            {/* Content */}
+            <div className="flex-1 text-center md:text-left">
+              <motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15, duration: 0.5 }}
+                className="text-2xl font-bold tracking-tight text-foreground md:text-3xl"
+              >
+                {preText}
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.25, duration: 0.5 }}
+                className="mt-2 max-w-lg text-base text-muted-foreground md:text-lg"
+              >
+                I&apos;m currently available for full-time roles and freelance
+                projects. Let&apos;s discuss how I can contribute to your team.
+              </motion.p>
+
+              {/* Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.35, duration: 0.5 }}
+                className="mt-6 flex flex-col items-center gap-3 sm:flex-row md:items-start"
+              >
+                {calLink ? (
+                  <button
+                    onClick={handleScheduleClick}
+                    className="group inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <Calendar className="h-4 w-4" />
+                    {linkText}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </button>
+                ) : (
+                  <Link
+                    href="/contact"
+                    className="group inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <Calendar className="h-4 w-4" />
+                    {linkText}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Link>
+                )}
+                <a
+                  href="mailto:ibrahimabdullaziz55@gmail.com"
+                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-card/80 px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 hover:shadow-sm"
+                >
+                  <Mail className="h-4 w-4" />
+                  Send an Email
+                </a>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </Container>
 
       {/* Cal.com Dialog */}

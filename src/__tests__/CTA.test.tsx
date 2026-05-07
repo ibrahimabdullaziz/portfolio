@@ -40,7 +40,9 @@ describe('CTA Component', () => {
 
   it('renders with default config content', () => {
     render(<CTA />);
-    expect(screen.getByText(/Hey, you scrolled this far/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Let's Build Something Together/i),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Get in Touch/i)).toBeInTheDocument();
   });
 
@@ -59,15 +61,10 @@ describe('CTA Component', () => {
   });
 
   it('redirects to /contact if no calLink is provided', () => {
-    const mockLocation = { href: 'http://localhost/' };
-    vi.stubGlobal('location', mockLocation);
-
     render(<CTA calLink="" linkText="Click Me" />);
-    const button = screen.getByText(/Click Me/i);
-    fireEvent.click(button.closest('.group')!);
-
-    expect(mockLocation.href).toBe('/contact');
-
-    vi.unstubAllGlobals();
+    expect(screen.getByRole('link', { name: /Click Me/i })).toHaveAttribute(
+      'href',
+      '/contact',
+    );
   });
 });

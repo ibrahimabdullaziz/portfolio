@@ -27,7 +27,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import React from 'react';
+import { motion } from 'framer-motion';
+import React, { useCallback, useRef } from 'react';
 
 interface SkillItem {
   name: string;
@@ -38,12 +39,16 @@ interface SkillCategory {
   title: string;
   description: string;
   skills: SkillItem[];
+  accentClass: string;
+  borderAccent: string;
 }
 
 const skillCategories: SkillCategory[] = [
   {
     title: 'Core Stack',
     description: 'Technologies I build with daily',
+    accentClass: 'from-blue-500/20 via-blue-400/5 to-transparent',
+    borderAccent: 'hover:border-blue-400/40 dark:hover:border-blue-500/30',
     skills: [
       { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
       { name: 'JavaScript', icon: <JavaScript key="javascript" /> },
@@ -57,6 +62,9 @@ const skillCategories: SkillCategory[] = [
   {
     title: 'Supporting Tools',
     description: 'Used in production projects',
+    accentClass: 'from-violet-500/20 via-violet-400/5 to-transparent',
+    borderAccent:
+      'hover:border-violet-400/40 dark:hover:border-violet-500/30',
     skills: [
       { name: 'Framer Motion', icon: <FramerMotion key="framermotion" /> },
       { name: 'Shadcn UI', icon: <Shadcn key="shadcn" /> },
@@ -72,6 +80,9 @@ const skillCategories: SkillCategory[] = [
   {
     title: 'Currently Learning',
     description: 'Actively expanding into',
+    accentClass: 'from-emerald-500/20 via-emerald-400/5 to-transparent',
+    borderAccent:
+      'hover:border-emerald-400/40 dark:hover:border-emerald-500/30',
     skills: [
       { name: 'Node.js', icon: <NodeJs key="nodejs" /> },
       { name: 'MongoDB', icon: <MongoDB key="mongodb" /> },
@@ -84,51 +95,95 @@ const skillCategories: SkillCategory[] = [
 // Export flat list for backward compatibility
 export const allSkills = skillCategories.flatMap((cat) => cat.skills);
 
+function GlowCard({
+  category,
+  index,
+}: {
+  category: SkillCategory;
+  index: number;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!cardRef.current || !glowRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      glowRef.current.style.background = `radial-gradient(250px circle at ${x}px ${y}px, var(--accent-blue-light) 0%, transparent 70%)`;
+      glowRef.current.style.opacity = '0.12';
+    },
+    [],
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    if (!glowRef.current) return;
+    glowRef.current.style.opacity = '0';
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ delay: index * 0.12, duration: 0.5 }}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`group relative overflow-hidden rounded-xl border border-border bg-card/80 p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 ${category.borderAccent}`}
+    >
+      {/* Mouse-tracking radial glow */}
+      <div
+        ref={glowRef}
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+      />
+
+      {/* Category Header */}
+      <div className="relative mb-5">
+        <h3 className="text-lg font-semibold text-foreground">
+          {category.title}
+        </h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {category.description}
+        </p>
+      </div>
+
+      {/* Skills Grid */}
+      <div className="relative flex flex-wrap gap-3">
+        {category.skills.map((skill) => (
+          <Tooltip key={skill.name}>
+            <TooltipTrigger asChild>
+              <div
+                role="img"
+                aria-label={skill.name}
+                className="flex items-center gap-2.5 rounded-lg border border-border bg-background/80 px-3 py-2 transition-all duration-200 hover:scale-[1.04] hover:border-primary/25 hover:bg-primary/5 hover:shadow-sm"
+              >
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center">
+                  {skill.icon}
+                </div>
+                <span className="text-sm font-medium text-foreground/80">
+                  {skill.name}
+                </span>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{skill.name}</p>
+            </TooltipContent>
+          </Tooltip>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   return (
     <Container id="skills" className="mt-20">
       <SectionHeading subHeading="Technologies & Tools" heading="Skills" />
       <div className="mt-8 grid gap-6 md:grid-cols-3">
-        {skillCategories.map((category) => (
-          <div
-            key={category.title}
-            className="group rounded-xl border border-neutral-200 bg-neutral-50/50 p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/30 dark:hover:shadow-neutral-900/50"
-          >
-            {/* Category Header */}
-            <div className="mb-5">
-              <h3 className="text-lg font-semibold text-foreground">
-                {category.title}
-              </h3>
-              <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-                {category.description}
-              </p>
-            </div>
-
-            {/* Skills Grid */}
-            <div className="flex flex-wrap gap-3">
-              {category.skills.map((skill) => (
-                <Tooltip key={skill.name}>
-                  <TooltipTrigger asChild>
-                    <div
-                      role="img"
-                      aria-label={skill.name}
-                      className="flex items-center gap-2.5 rounded-lg border border-neutral-200 bg-white/80 px-3 py-2 transition-all duration-200 hover:scale-[1.03] hover:bg-neutral-100 hover:shadow-sm dark:border-neutral-700 dark:bg-neutral-800/60 dark:hover:bg-neutral-700/80"
-                    >
-                      <div className="flex h-5 w-5 shrink-0 items-center justify-center">
-                        {skill.icon}
-                      </div>
-                      <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                        {skill.name}
-                      </span>
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{skill.name}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </div>
-          </div>
+        {skillCategories.map((category, index) => (
+          <GlowCard key={category.title} category={category} index={index} />
         ))}
       </div>
     </Container>

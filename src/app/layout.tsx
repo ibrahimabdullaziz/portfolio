@@ -1,9 +1,11 @@
+import BackToTop from '@/components/common/BackToTop';
 import ConditionalLayout from '@/components/common/ConditionalLayout';
 import Footer from '@/components/common/Footer';
 import LenisProvider from '@/components/common/LenisProvider';
 import Navbar from '@/components/common/Navbar';
 import OnekoCat from '@/components/common/OnekoCat';
 import { Quote } from '@/components/common/Quote';
+import ScrollProgress from '@/components/common/ScrollProgress';
 import { ThemeProvider } from '@/components/common/ThemeProviders';
 import { generateMetadata as getMetadata } from '@/config/Meta';
 import { ViewTransitions } from 'next-view-transitions';
@@ -39,7 +41,7 @@ export default function RootLayout({
                 '@context': 'https://schema.org',
                 '@type': 'Person',
                 name: 'Ibrahim Abdullaziz',
-                url: 'https://sleek-portfolio.com', // Replace with real URL in production
+                url: 'https://ibrahim-abdullaziz.vercel.app',
                 jobTitle: 'Software Engineer',
                 sameAs: [
                   'https://github.com/ibrahimabdullaziz',
@@ -65,6 +67,7 @@ export default function RootLayout({
                   Skip to main content
                 </a>
                 <ConditionalLayout hideOnPaths={['/resume']}>
+                  <ScrollProgress />
                   <Navbar />
                 </ConditionalLayout>
 
@@ -76,6 +79,7 @@ export default function RootLayout({
                   <OnekoCat />
                   <Quote />
                   <Footer />
+                  <BackToTop />
                 </ConditionalLayout>
               </div>
             </LenisProvider>
