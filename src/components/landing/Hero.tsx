@@ -3,7 +3,7 @@
 import { heroConfig, skillComponents, socialLinks } from '@/config/Hero';
 import { parseTemplate } from '@/lib/hero';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import React from 'react';
@@ -21,7 +21,7 @@ const buttonIcons = {
   Chat: Chat,
 };
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -31,7 +31,7 @@ const stagger = {
   },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20, filter: 'blur(6px)' },
   visible: {
     opacity: 1,
@@ -41,7 +41,7 @@ const fadeUp = {
   },
 };
 
-const slideInLeft = {
+const slideInLeft: Variants = {
   hidden: { opacity: 0, x: -30, filter: 'blur(4px)' },
   visible: {
     opacity: 1,
@@ -51,7 +51,7 @@ const slideInLeft = {
   },
 };
 
-const scaleIn = {
+const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: {
     opacity: 1,
