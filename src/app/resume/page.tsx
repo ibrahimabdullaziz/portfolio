@@ -3,6 +3,7 @@ import { Separator } from '@/components/ui/separator';
 import { generateMetadata as getMetadata } from '@/config/Meta';
 import { resumeConfig } from '@/config/Resume';
 import { Metadata } from 'next';
+import { Link } from 'next-view-transitions';
 import React from 'react';
 
 export const metadata: Metadata = {
@@ -23,8 +24,9 @@ export const metadata: Metadata = {
 export default function ResumePage() {
   return (
     <Container className="py-16">
+      <div className="space-y-8">
         <div className="flex items-center justify-between">
-          <a
+          <Link
             href="/"
             className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm transition-colors"
           >
@@ -42,7 +44,7 @@ export default function ResumePage() {
               <path d="m15 18-6-6 6-6" />
             </svg>
             Back to Portfolio
-          </a>
+          </Link>
           <a
             href={resumeConfig.url}
             download
