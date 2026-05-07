@@ -100,6 +100,38 @@ A fully functional global state manager that teaches React rendering internals t
     ],
     timeline: 'January 2025',
   },
+  'cv-suite': {
+    content: `## The Problem
+
+Learning classical computer vision algorithms often requires complex local setups or heavy Python libraries like OpenCV. For many students and engineers, there is no high-performance, interactive playground to experiment with these algorithms directly in the browser and see real-time performance metrics.
+
+## Technical Decisions
+
+**Vanilla JavaScript Engine:** To demonstrate deep algorithm knowledge, I implemented every image processing filter (Mean, Gaussian, Median, Sobel, Canny) in pure Vanilla JavaScript rather than using libraries. This ensures complete control over pixel-level manipulation and memory usage.
+
+**High-Performance Computation:** Heavy pixel-by-pixel calculations are optimized to run in the browser. I implemented real-time execution tracking that measures the performance of each operation in milliseconds, providing a laboratory environment for analyzing algorithm complexity.
+
+**Comprehensive Feature Set:**
+- **Filters:** Both linear (Gaussian, Mean) and non-linear (Median, Mode, Alpha-Trimmed) implementations.
+- **Edge Detection:** High-accuracy kernels for Sobel, Prewitt, and Laplacian operators.
+- **Segmentation:** Advanced algorithms including Otsu Thresholding, K-Means clustering, and Watershed transforms.
+- **Compression:** Visual analysis of RLE, Huffman, and LZW compression efficiency.
+
+**Modern UI with Next.js 15:** The laboratory environment uses a clean, responsive sidebar-based UI built with Next.js 15 and Tailwind CSS, allowing for real-time parameter adjustment and live histogram visualization.
+
+## The Outcome
+
+A high-performance web application that serves as a comprehensive laboratory for computer vision education. It allows users to upload images and instantly apply complex mathematical transforms with sub-second execution times, all without leaving the browser.`,
+    challenges: [
+      'Implementing the Canny edge detector from scratch required multiple passes (Gaussian blur, gradient calculation, non-maximum suppression, and hysteresis thresholding) while maintaining browser performance.',
+      'Optimizing K-Means clustering for large images to avoid blocking the main thread during the iterative centoid calculation.',
+    ],
+    learnings: [
+      'Pixel-level manipulation in JavaScript requires a deep understanding of TypedArrays and the Canvas API for performance.',
+      'Real-time visualization of algorithm intermediate steps (like gradient magnitude vs. direction) is a powerful educational tool.',
+    ],
+    timeline: '2024',
+  },
   'job-bot': {
     content: `## The Problem
 

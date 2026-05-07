@@ -1,5 +1,6 @@
 import Clerk from '@/components/technologies/Clerk';
 import Convex from '@/components/technologies/Convex';
+import JavaScript from '@/components/technologies/JavaScript';
 import Monaco from '@/components/technologies/Monaco';
 import Motion from '@/components/technologies/Motion';
 import NextJs from '@/components/technologies/NextJs';
@@ -35,6 +36,23 @@ export const projects: Project[] = [
     live: 'https://vedio-sync.netlify.app/',
     details: true,
     projectDetailsPageSlug: '/projects/vsync',
+    isWorking: true,
+  },
+  {
+    title: 'CV Suite',
+    description:
+      'High-performance image processing lab providing a browser-based environment for classical Computer Vision algorithms. Implemented complex linear/non-linear filters, edge detection (Canny, Sobel), segmentation (Otsu, K-Means), and compression analysis (Huffman, LZW) with real-time millisecond execution tracking.',
+    image: '/assets/projects/cv-suite.png',
+    link: 'https://cv-suite.netlify.app/',
+    technologies: [
+      { name: 'Next.js 15', icon: <NextJs key="nextjs" /> },
+      { name: 'JavaScript', icon: <JavaScript key="javascript" /> },
+      { name: 'Tailwind CSS', icon: <TailwindCss key="tailwindcss" /> },
+    ],
+    github: 'https://github.com/ibrahimabdullaziz/CV-Suite',
+    live: 'https://cv-suite.netlify.app/',
+    details: true,
+    projectDetailsPageSlug: '/projects/cv-suite',
     isWorking: true,
   },
   {

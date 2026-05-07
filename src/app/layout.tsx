@@ -1,3 +1,4 @@
+import ConditionalLayout from '@/components/common/ConditionalLayout';
 import Footer from '@/components/common/Footer';
 import LenisProvider from '@/components/common/LenisProvider';
 import Navbar from '@/components/common/Navbar';
@@ -63,15 +64,19 @@ export default function RootLayout({
                 >
                   Skip to main content
                 </a>
-                <Navbar />
+                <ConditionalLayout hideOnPaths={['/resume']}>
+                  <Navbar />
+                </ConditionalLayout>
 
                 <main id="main-content" className="flex-1">
                   {children}
                 </main>
 
-                <OnekoCat />
-                <Quote />
-                <Footer />
+                <ConditionalLayout hideOnPaths={['/resume']}>
+                  <OnekoCat />
+                  <Quote />
+                  <Footer />
+                </ConditionalLayout>
               </div>
             </LenisProvider>
           </ThemeProvider>
