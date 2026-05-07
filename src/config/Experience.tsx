@@ -30,7 +30,7 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
-    isCurrent: true,
+    isCurrent: false,
     company: 'ITI (Information Technology Institute)',
     position: 'React Development Intern',
     location: 'Tanta Branch, Egypt',
@@ -69,13 +69,13 @@ export const experiences: Experience[] = [
     website: 'https://iti.gov.eg',
   },
   {
-    isCurrent: false,
+    isCurrent: true,
     company: 'Kafr Elsheikh University',
     position: 'B.Sc. Computer Science (CGPA 3.31/4.0)',
     location: 'Kafr Elsheikh, Egypt',
     image: '/assets/logo.png',
     description: [
-      'Pursuing a Bachelor of Computers & Information Science — consistently ranking among top students in the CS department.',
+      'Pursuing a Bachelor of Computers & Information Science, consistently ranking among top students in the CS department.',
       'Core coursework: Data Structures & Algorithms, OOP, Operating Systems, Computer Architecture, Computer Networks, Database Systems, Software Engineering.',
       'Built multiple self-driven projects applying classroom knowledge to real-world problems (V-Sync, UrMoviez, React Custom Hooks Store).',
       'Actively participated in technical communities and open-source contributions.',

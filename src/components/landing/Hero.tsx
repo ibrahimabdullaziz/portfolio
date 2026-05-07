@@ -2,7 +2,6 @@
 
 import { heroConfig, skillComponents, socialLinks } from '@/config/Hero';
 import { parseTemplate } from '@/lib/hero';
-import { cn } from '@/lib/utils';
 import { motion, type Variants } from 'framer-motion';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
@@ -13,7 +12,6 @@ import Skill from '../common/Skill';
 import Typewriter from '../common/Typewriter';
 import CV from '../svgs/CV';
 import Chat from '../svgs/Chat';
-import { Button } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 const buttonIcons = {
@@ -107,14 +105,13 @@ export default function Hero() {
           variants={scaleIn}
         >
           <div className="relative group">
-            <div className="absolute -inset-1 rounded-lg bg-gradient-to-br from-primary/30 via-primary/10 to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
             <Image
               src="/assets/logo.png"
               alt="Ibrahim Abdullaziz, Software Engineer"
               width={400}
               height={400}
               priority
-              className="relative w-full aspect-square rounded-md border-2 border-primary/20 bg-blue-300 dark:bg-yellow-300 object-cover transition-transform duration-500 group-hover:scale-[1.01]"
+              className="relative w-full aspect-square rounded-md object-cover transition-transform duration-300 group-hover:scale-[1.005]"
             />
           </div>
           {/* Social Links */}
@@ -184,31 +181,34 @@ export default function Hero() {
             variants={fadeUp}
             className="text-muted-foreground text-base leading-relaxed mt-2 max-w-xl md:text-lg"
           >
-            Certified React Developer from ITI, currently pursuing Computer
-            Science at Kafr Elsheikh University. Focused on building
-            high-performance applications with Next.js 14, React 19, and
-            real-time communication systems.
+            Currently pursuing Computer Science at Kafr Elsheikh University
+            with a 3.31 CGPA. ITI-certified in React Development, focused on
+            component architecture, state management, UI performance, and
+            real-time web applications.
           </motion.p>
 
-          {/* Buttons */}
-          <motion.div className="mt-8 flex gap-4" variants={fadeUp}>
+          {/* Actions */}
+          <motion.div
+            className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4"
+            variants={fadeUp}
+          >
             {buttons.map((button, index) => {
               const IconComponent =
                 buttonIcons[button.icon as keyof typeof buttonIcons];
               return (
-                <Button
+                <Link
                   key={index}
-                  variant={button.variant as 'outline' | 'default'}
-                  className={cn(
-                    'transition-all duration-300',
-                    button.variant === 'default' &&
-                      'shadow-md hover:shadow-lg hover:shadow-primary/20 hover:scale-[1.02]',
-                    button.variant === 'outline' && 'hover:bg-muted',
-                  )}
+                  href={button.href}
+                  className="group/action relative inline-flex min-h-10 items-center gap-3 text-sm font-semibold tracking-wide text-foreground transition-colors duration-200 hover:text-foreground/70"
                 >
-                  {IconComponent && <IconComponent />}
-                  <Link href={button.href}>{button.text}</Link>
-                </Button>
+                  <span className="flex h-5 w-5 items-center justify-center text-foreground/70 transition-colors duration-200 group-hover/action:text-foreground">
+                    {IconComponent && <IconComponent />}
+                  </span>
+                  <span className="relative">
+                    {button.text}
+                    <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-foreground/60 transition-transform duration-200 group-hover/action:scale-x-100" />
+                  </span>
+                </Link>
               );
             })}
           </motion.div>

@@ -4,7 +4,10 @@ import { Separator } from '@/components/ui/separator';
 import { ProjectCaseStudyFrontmatter } from '@/types/project';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
 
+import { ProjectComponents } from './ProjectComponents';
 import Github from '../svgs/Github';
 import Website from '../svgs/Website';
 
@@ -202,7 +205,9 @@ export function ProjectContent({ frontmatter, content }: ProjectContentProps) {
 
       {/* Content */}
       <div className="prose prose-neutral dark:prose-invert max-w-none">
-        <div className="whitespace-pre-wrap">{content}</div>
+        <ReactMarkdown components={ProjectComponents as unknown as Components}>
+          {content}
+        </ReactMarkdown>
       </div>
     </article>
   );

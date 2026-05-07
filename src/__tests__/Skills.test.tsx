@@ -29,7 +29,7 @@ vi.mock('@/components/ui/tooltip', () => ({
 describe('Skills Component', () => {
   it('renders section heading', () => {
     render(<Skills />);
-    expect(screen.getByText(/Technologies & Tools/i)).toBeInTheDocument();
+    expect(screen.getByText(/Resume-aligned toolkit/i)).toBeInTheDocument();
     expect(screen.getByText('Skills')).toBeInTheDocument();
   });
 
