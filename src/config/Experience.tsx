@@ -32,14 +32,15 @@ export const experiences: Experience[] = [
   {
     isCurrent: true,
     company: 'ITI (Information Technology Institute)',
-    position: 'React Developer Trainee',
+    position: 'React Development Intern',
     location: 'Tanta Branch, Egypt',
     image: '/assets/logo.png',
     description: [
-      'Completed an intensive 120-hour React Development Summer Training program.',
-      'Built production-grade React applications using modern patterns including hooks, context, and custom hooks.',
-      'Developed deep expertise in React 19, component architecture, state management with Redux Toolkit, and data fetching with TanStack Query.',
-      'Collaborated with fellow trainees on team projects following Agile/Scrum methodologies.',
+      'Completed Egypt\'s national 120-hour intensive React program; selected for the advanced project track.',
+      'Built React apps using Hooks, Context API, and Redux Toolkit to manage state across multi-page component trees.',
+      'Applied TanStack Query v5 caching, background re-fetching, and optimistic updates to reduce redundant API calls.',
+      'Built a shared component system following Atomic Design principles, improving consistency across 3+ projects.',
+      'Used code splitting, lazy loading, and Web Vitals monitoring to achieve Core Web Vitals scores (LCP < 2.5s, FID < 100ms).',
     ],
     startDate: 'Summer 2025',
     endDate: 'Summer 2025',
@@ -70,17 +71,17 @@ export const experiences: Experience[] = [
   {
     isCurrent: false,
     company: 'Kafr Elsheikh University',
-    position: 'Computer Science Student (Level 3)',
+    position: 'B.Sc. Computer Science (CGPA 3.31/4.0)',
     location: 'Kafr Elsheikh, Egypt',
     image: '/assets/logo.png',
     description: [
-      'Pursuing a Bachelor of Computers and Information with a 3.21 GPA.',
-      'Studied core CS fundamentals: Data Structures, Algorithms, OOP, SOLID Principles, and Software Development Life Cycle.',
-      'Built multiple self-driven projects applying classroom knowledge to real-world problems.',
+      'Pursuing a Bachelor of Computers & Information Science — consistently ranking among top students in the CS department.',
+      'Core coursework: Data Structures & Algorithms, OOP, Operating Systems, Computer Architecture, Computer Networks, Database Systems, Software Engineering.',
+      'Built multiple self-driven projects applying classroom knowledge to real-world problems (V-Sync, UrMoviez, React Custom Hooks Store).',
       'Actively participated in technical communities and open-source contributions.',
     ],
     startDate: '2023',
-    endDate: 'Present',
+    endDate: 'Present (Expected June 2027)',
     technologies: [
       {
         name: 'Next.js',

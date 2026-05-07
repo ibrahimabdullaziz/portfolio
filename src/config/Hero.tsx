@@ -1,4 +1,3 @@
-import Facebook from '@/components/svgs/Facebook';
 import Github from '@/components/svgs/Github';
 import LinkedIn from '@/components/svgs/LinkedIn';
 import Mail from '@/components/svgs/Mail';
@@ -56,7 +55,7 @@ export const heroConfig = {
 
   description: {
     template:
-      'I build high-performance, scalable web apps using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. Specialized in <b>real-time systems</b> and <b>serverless architectures</b>.',
+      'I build high-performance, scalable web apps using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. Specialized in <b>component architecture</b>, <b>state management</b>, and <b>UI performance optimization</b>.',
   },
 
   buttons: [
@@ -95,10 +94,5 @@ export const socialLinks = [
     name: 'Email',
     href: 'mailto:ibrahimabdullaziz55@gmail.com',
     icon: <Mail />,
-  },
-  {
-    name: 'Facebook',
-    href: 'https://www.facebook.com/share/14Z3buaWw5y/',
-    icon: <Facebook />,
   },
 ];

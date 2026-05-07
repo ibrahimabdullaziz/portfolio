@@ -1,5 +1,6 @@
+'use client';
+
 import Container from '@/components/common/Container';
-import InfiniteSlider from '@/components/common/InfiniteSlider';
 import SectionHeading from '@/components/common/SectionHeading';
 import Github from '@/components/svgs/Github';
 import CPlusPlus from '@/components/technologies/CPlusPlus';
@@ -28,85 +29,107 @@ import {
 } from '@/components/ui/tooltip';
 import React from 'react';
 
-export const allSkills = [
-  { name: 'JavaScript', icon: <JavaScript key="javascript" /> },
-  { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
-  { name: 'C++', icon: <CPlusPlus key="cplusplus" /> },
-  { name: 'React', icon: <ReactIcon key="react" /> },
-  { name: 'Next.js', icon: <NextJs key="nextjs" /> },
-  { name: 'Redux Toolkit', icon: <Redux key="redux" /> },
-  { name: 'TanStack Query', icon: <ReactQuery key="reactquery" /> },
-  { name: 'Jest', icon: <Jest key="jest" /> },
-  { name: 'Node.js', icon: <NodeJs key="nodejs" /> },
-  { name: 'Tailwind CSS', icon: <TailwindCss key="tailwindcss" /> },
-  { name: 'Shadcn UI', icon: <Shadcn key="shadcn" /> },
-  { name: 'Framer Motion', icon: <FramerMotion key="framermotion" /> },
-  { name: 'MongoDB', icon: <MongoDB key="mongodb" /> },
-  { name: 'PostgreSQL', icon: <PostgreSQL key="postgresql" /> },
-  { name: 'Convex', icon: <Convex key="convex" /> },
-  { name: 'HTML5', icon: <HTML5 key="html5" /> },
-  { name: 'CSS3', icon: <CSS3 key="css3" /> },
-  { name: 'Git & GitHub', icon: <Github key="github" /> },
-  { name: 'Netlify', icon: <Netlify key="netlify" /> },
-  { name: 'Postman', icon: <Postman key="postman" /> },
+interface SkillItem {
+  name: string;
+  icon: React.ReactNode;
+}
+
+interface SkillCategory {
+  title: string;
+  description: string;
+  skills: SkillItem[];
+}
+
+const skillCategories: SkillCategory[] = [
+  {
+    title: 'Core Stack',
+    description: 'Technologies I build with daily',
+    skills: [
+      { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
+      { name: 'JavaScript', icon: <JavaScript key="javascript" /> },
+      { name: 'React 19', icon: <ReactIcon key="react" /> },
+      { name: 'Next.js 14', icon: <NextJs key="nextjs" /> },
+      { name: 'Tailwind CSS v4', icon: <TailwindCss key="tailwindcss" /> },
+      { name: 'Redux Toolkit', icon: <Redux key="redux" /> },
+      { name: 'TanStack Query v5', icon: <ReactQuery key="reactquery" /> },
+    ],
+  },
+  {
+    title: 'Supporting Tools',
+    description: 'Used in production projects',
+    skills: [
+      { name: 'Framer Motion', icon: <FramerMotion key="framermotion" /> },
+      { name: 'Shadcn UI', icon: <Shadcn key="shadcn" /> },
+      { name: 'Convex', icon: <Convex key="convex" /> },
+      { name: 'Jest', icon: <Jest key="jest" /> },
+      { name: 'Git & GitHub', icon: <Github key="github" /> },
+      { name: 'HTML5', icon: <HTML5 key="html5" /> },
+      { name: 'CSS3', icon: <CSS3 key="css3" /> },
+      { name: 'Netlify', icon: <Netlify key="netlify" /> },
+      { name: 'Postman', icon: <Postman key="postman" /> },
+    ],
+  },
+  {
+    title: 'Currently Learning',
+    description: 'Actively expanding into',
+    skills: [
+      { name: 'Node.js', icon: <NodeJs key="nodejs" /> },
+      { name: 'MongoDB', icon: <MongoDB key="mongodb" /> },
+      { name: 'PostgreSQL', icon: <PostgreSQL key="postgresql" /> },
+      { name: 'C++', icon: <CPlusPlus key="cplusplus" /> },
+    ],
+  },
 ];
 
+// Export flat list for backward compatibility
+export const allSkills = skillCategories.flatMap((cat) => cat.skills);
+
 export default function Skills() {
-  const midpoint = Math.ceil(allSkills.length / 2);
-  const topRowSkills = allSkills.slice(0, midpoint);
-  const bottomRowSkills = allSkills.slice(midpoint);
-
   return (
-    <Container id="skills" className="mt-20 overflow-hidden">
+    <Container id="skills" className="mt-20">
       <SectionHeading subHeading="Technologies & Tools" heading="Skills" />
-      <div className="mt-8 flex flex-col gap-4">
-        <InfiniteSlider direction="left" speed="normal">
-          {topRowSkills.map((skill) => (
-            <Tooltip key={skill.name}>
-              <TooltipTrigger asChild>
-                <div
-                  role="img"
-                  aria-label={skill.name}
-                  className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-neutral-200 bg-neutral-100/50 p-4 min-w-[100px] backdrop-blur-sm transition-all hover:scale-105 hover:bg-neutral-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-800 dark:hover:shadow-neutral-900/50"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center transition-transform group-hover:scale-110">
-                    {skill.icon}
-                  </div>
-                  <span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
-                    {skill.name}
-                  </span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{skill.name}</p>
-              </TooltipContent>
-            </Tooltip>
-          ))}
-        </InfiniteSlider>
+      <div className="mt-8 grid gap-6 md:grid-cols-3">
+        {skillCategories.map((category) => (
+          <div
+            key={category.title}
+            className="group rounded-xl border border-neutral-200 bg-neutral-50/50 p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/30 dark:hover:shadow-neutral-900/50"
+          >
+            {/* Category Header */}
+            <div className="mb-5">
+              <h3 className="text-lg font-semibold text-foreground">
+                {category.title}
+              </h3>
+              <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                {category.description}
+              </p>
+            </div>
 
-        <InfiniteSlider direction="right" speed="normal">
-          {bottomRowSkills.map((skill) => (
-            <Tooltip key={skill.name}>
-              <TooltipTrigger asChild>
-                <div
-                  role="img"
-                  aria-label={skill.name}
-                  className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-neutral-200 bg-neutral-100/50 p-4 min-w-[100px] backdrop-blur-sm transition-all hover:scale-105 hover:bg-neutral-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-800 dark:hover:shadow-neutral-900/50"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center transition-transform group-hover:scale-110">
-                    {skill.icon}
-                  </div>
-                  <span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
-                    {skill.name}
-                  </span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{skill.name}</p>
-              </TooltipContent>
-            </Tooltip>
-          ))}
-        </InfiniteSlider>
+            {/* Skills Grid */}
+            <div className="flex flex-wrap gap-3">
+              {category.skills.map((skill) => (
+                <Tooltip key={skill.name}>
+                  <TooltipTrigger asChild>
+                    <div
+                      role="img"
+                      aria-label={skill.name}
+                      className="flex items-center gap-2.5 rounded-lg border border-neutral-200 bg-white/80 px-3 py-2 transition-all duration-200 hover:scale-[1.03] hover:bg-neutral-100 hover:shadow-sm dark:border-neutral-700 dark:bg-neutral-800/60 dark:hover:bg-neutral-700/80"
+                    >
+                      <div className="flex h-5 w-5 shrink-0 items-center justify-center">
+                        {skill.icon}
+                      </div>
+                      <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                        {skill.name}
+                      </span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{skill.name}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </Container>
   );

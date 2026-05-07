@@ -87,6 +87,14 @@ export default function Hero() {
 
         {/* Right Column: Text Area */}
         <div className="flex flex-col gap-4 pt-4 md:pt-0 md:w-2/3">
+          {/* Open to Work Banner */}
+          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-green-200 bg-green-50/80 px-4 py-1.5 text-sm font-medium text-green-700 backdrop-blur-sm dark:border-green-800/50 dark:bg-green-950/30 dark:text-green-400">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+            </span>
+            Available for full-time roles · Egypt · Open to remote
+          </div>
           <h1 className="text-4xl font-bold">
             Hi, I&apos;m {name} —{' '}
             <span className="bg-gradient-to-r from-neutral-600 to-neutral-400 dark:from-neutral-300 dark:to-neutral-500 bg-clip-text text-transparent inline-block min-h-[1.2em]">

@@ -1,5 +1,5 @@
 export const about = {
   name: 'Ibrahim Abdullaziz',
   description:
-    "I'm a results-driven Software Engineer specialized in building high-performance, scalable web applications. Certified React Developer from ITI with deep expertise in Next.js, React, and real-time communication systems. Currently a third-year Computer Science student at Kafr Elsheikh University.",
+    'Frontend Software Engineer specializing in React and Next.js, with a strong CS foundation and hands-on expertise building high-performance, scalable web applications. Third-year Computer Science student (CGPA 3.31/4.0). Deep expertise in component architecture, state management, and UI performance optimization.',
 };
