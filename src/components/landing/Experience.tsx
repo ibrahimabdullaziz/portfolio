@@ -10,10 +10,7 @@ import React from 'react';
 export default function Experience() {
   return (
     <Container id="experience" className="mt-20">
-      <SectionHeading
-        subHeading="My Journey"
-        heading="Experience & Education"
-      />
+      <SectionHeading subHeading="Where I've Been" heading="Experience" />
       <div className="relative mt-8">
         {/* Timeline line */}
         <div className="from-primary/40 via-border to-border absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b md:left-1/2 md:-translate-x-px" />
@@ -51,7 +48,7 @@ export default function Experience() {
                   index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'
                 }`}
               >
-                <div className="rounded-xl border border-neutral-200 bg-white/80 p-5 shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/60">
+                <div className="border-border bg-card/80 hover:border-primary/20 rounded-xl border p-5 shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md">
                   {/* Header */}
                   <div
                     className={`flex items-center gap-3 ${
@@ -98,7 +95,7 @@ export default function Experience() {
                   >
                     {exp.description.map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
+                        <span className="bg-primary/50 mt-2 block h-1.5 w-1.5 shrink-0 rounded-full" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -113,7 +110,7 @@ export default function Experience() {
                     {exp.technologies.map((tech) => (
                       <div
                         key={tech.name}
-                        className="flex items-center gap-1.5 rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 text-xs dark:border-neutral-700 dark:bg-neutral-800"
+                        className="border-border/70 bg-muted/60 flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs"
                       >
                         <span className="h-3.5 w-3.5">{tech.icon}</span>
                         <span>{tech.name}</span>

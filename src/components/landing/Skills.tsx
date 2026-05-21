@@ -35,8 +35,6 @@ type ThemeColor = 'blue' | 'emerald' | 'amber' | 'purple';
 
 interface SkillCategory {
   title: string;
-  description: string;
-  proof: string;
   color: ThemeColor;
   skills: SkillItem[];
 }
@@ -44,9 +42,6 @@ interface SkillCategory {
 const skillCategories: SkillCategory[] = [
   {
     title: 'Frontend Engineering',
-    description:
-      'React and Next.js interfaces built for speed, clarity, and accessibility.',
-    proof: 'Used across V-Sync, UrMoviez, the portfolio, and ITI projects.',
     color: 'blue',
     skills: [
       { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
@@ -56,13 +51,12 @@ const skillCategories: SkillCategory[] = [
       { name: 'Tailwind CSS v4', icon: <TailwindCss key="tailwindcss" /> },
       { name: 'Shadcn UI', icon: <Shadcn key="shadcn" /> },
       { name: 'Radix UI', icon: <Radix key="radix" /> },
+      { name: 'HTML5', icon: <HTML5 key="html5" /> },
+      { name: 'CSS3', icon: <CSS3 key="css3" /> },
     ],
   },
   {
-    title: 'State, Data, and Realtime',
-    description: 'Application state, async data, caching, and serverless sync.',
-    proof:
-      'Redux Toolkit and TanStack Query at ITI; Convex realtime sync in V-Sync.',
+    title: 'State, Data & Realtime',
     color: 'emerald',
     skills: [
       { name: 'Redux Toolkit', icon: <Redux key="redux" /> },
@@ -70,13 +64,11 @@ const skillCategories: SkillCategory[] = [
       { name: 'Convex', icon: <Convex key="convex" /> },
       { name: 'MongoDB', icon: <MongoDB key="mongodb" /> },
       { name: 'PostgreSQL', icon: <PostgreSQL key="postgresql" /> },
+      { name: 'Node.js', icon: <NodeJs key="nodejs" /> },
     ],
   },
   {
-    title: 'Quality and Delivery',
-    description: 'Testing, motion, tooling, and production-minded workflows.',
-    proof:
-      'Web Vitals work, WCAG checks, Jest/RTL testing, GitHub-driven delivery.',
+    title: 'Tooling & Delivery',
     color: 'amber',
     skills: [
       { name: 'Framer Motion', icon: <FramerMotion key="framermotion" /> },
@@ -84,70 +76,32 @@ const skillCategories: SkillCategory[] = [
       { name: 'Git & GitHub', icon: <Github key="github" /> },
       { name: 'Postman', icon: <Postman key="postman" /> },
       { name: 'Netlify', icon: <Netlify key="netlify" /> },
-      { name: 'HTML5', icon: <HTML5 key="html5" /> },
-      { name: 'CSS3', icon: <CSS3 key="css3" /> },
     ],
   },
   {
-    title: 'Backend and CS Growth',
-    description: 'Current expansion path backed by CS fundamentals.',
-    proof:
-      'Studying DSA, OOP, OS, networks, databases, and software engineering.',
+    title: 'Growing Into',
     color: 'purple',
-    skills: [
-      { name: 'Node.js', icon: <NodeJs key="nodejs" /> },
-      { name: 'C++', icon: <CPlusPlus key="cplusplus" /> },
-    ],
+    skills: [{ name: 'C++', icon: <CPlusPlus key="cplusplus" /> }],
   },
 ];
 
 export const allSkills = skillCategories.flatMap((cat) => cat.skills);
 
-const colorThemes = {
-  emerald: {
-    bg: 'bg-emerald-500/[0.03] dark:bg-emerald-500/[0.08]',
-    border: 'border-emerald-500/30 dark:border-emerald-500/30',
-    hoverBorder: 'hover:border-emerald-500/50 dark:hover:border-emerald-500/50',
-    hoverShadow: 'hover:shadow-emerald-500/10',
-    text: 'text-emerald-600 dark:text-emerald-400',
-    proofBorder: 'border-emerald-500/30',
-    pillHoverBorder: 'hover:border-emerald-500/40',
-    pillHoverBg: 'hover:bg-emerald-500/10',
-    pillHoverText: 'hover:text-emerald-700 dark:hover:text-emerald-300',
-  },
-  amber: {
-    bg: 'bg-amber-500/[0.03] dark:bg-amber-500/[0.08]',
-    border: 'border-amber-500/30 dark:border-amber-500/30',
-    hoverBorder: 'hover:border-amber-500/50 dark:hover:border-amber-500/50',
-    hoverShadow: 'hover:shadow-amber-500/10',
-    text: 'text-amber-600 dark:text-amber-400',
-    proofBorder: 'border-amber-500/30',
-    pillHoverBorder: 'hover:border-amber-500/40',
-    pillHoverBg: 'hover:bg-amber-500/10',
-    pillHoverText: 'hover:text-amber-700 dark:hover:text-amber-300',
-  },
-  blue: {
-    bg: 'bg-blue-500/[0.03] dark:bg-blue-500/[0.08]',
-    border: 'border-blue-500/30 dark:border-blue-500/30',
-    hoverBorder: 'hover:border-blue-500/50 dark:hover:border-blue-500/50',
-    hoverShadow: 'hover:shadow-blue-500/10',
-    text: 'text-blue-600 dark:text-blue-400',
-    proofBorder: 'border-blue-500/30',
-    pillHoverBorder: 'hover:border-blue-500/40',
-    pillHoverBg: 'hover:bg-blue-500/10',
-    pillHoverText: 'hover:text-blue-700 dark:hover:text-blue-300',
-  },
-  purple: {
-    bg: 'bg-purple-500/[0.03] dark:bg-purple-500/[0.08]',
-    border: 'border-purple-500/30 dark:border-purple-500/30',
-    hoverBorder: 'hover:border-purple-500/50 dark:hover:border-purple-500/50',
-    hoverShadow: 'hover:shadow-purple-500/10',
-    text: 'text-purple-600 dark:text-purple-400',
-    proofBorder: 'border-purple-500/30',
-    pillHoverBorder: 'hover:border-purple-500/40',
-    pillHoverBg: 'hover:bg-purple-500/10',
-    pillHoverText: 'hover:text-purple-700 dark:hover:text-purple-300',
-  },
+const titleColors: Record<ThemeColor, string> = {
+  blue: 'text-blue-600 dark:text-blue-400',
+  emerald: 'text-emerald-600 dark:text-emerald-400',
+  amber: 'text-amber-600 dark:text-amber-400',
+  purple: 'text-purple-600 dark:text-purple-400',
+};
+
+const pillHoverStyles: Record<ThemeColor, string> = {
+  blue: 'hover:border-blue-400/50 hover:bg-blue-500/8 hover:text-blue-700 dark:hover:text-blue-300 hover:shadow-blue-500/10',
+  emerald:
+    'hover:border-emerald-400/50 hover:bg-emerald-500/8 hover:text-emerald-700 dark:hover:text-emerald-300 hover:shadow-emerald-500/10',
+  amber:
+    'hover:border-amber-400/50 hover:bg-amber-500/8 hover:text-amber-700 dark:hover:text-amber-300 hover:shadow-amber-500/10',
+  purple:
+    'hover:border-purple-400/50 hover:bg-purple-500/8 hover:text-purple-700 dark:hover:text-purple-300 hover:shadow-purple-500/10',
 };
 
 function SkillGroup({
@@ -157,42 +111,37 @@ function SkillGroup({
   category: SkillCategory;
   index: number;
 }) {
-  const theme = colorThemes[category.color];
-
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)', y: 10 }}
-      whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)', y: 0 }}
+      initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ delay: index * 0.08, duration: 0.35 }}
-      className={`rounded-lg border p-5 transition-all duration-300 hover:shadow-lg ${theme.bg} ${theme.border} ${theme.hoverBorder} ${theme.hoverShadow}`}
+      transition={{
+        delay: index * 0.1,
+        duration: 0.45,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
     >
-      <div className="mb-5">
-        <h3 className={`text-base font-semibold ${theme.text}`}>
-          {category.title}
-        </h3>
-        <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
-          {category.description}
-        </p>
-        <p
-          className={`text-muted-foreground mt-3 border-l-2 pl-3 text-xs leading-relaxed ${theme.proofBorder}`}
-        >
-          {category.proof}
-        </p>
-      </div>
+      {/* Category label */}
+      <p
+        className={`mb-3 text-xs font-semibold tracking-widest uppercase ${titleColors[category.color]}`}
+      >
+        {category.title}
+      </p>
 
+      {/* Skills flow */}
       <div className="flex flex-wrap gap-2">
         {category.skills.map((skill) => (
           <div
             key={skill.name}
             role="img"
             aria-label={skill.name}
-            className={`bg-background text-foreground/85 border-border/70 inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition-all duration-300 hover:-translate-y-px hover:shadow-sm ${theme.pillHoverBorder} ${theme.pillHoverBg} ${theme.pillHoverText}`}
+            className={`group border-border/60 bg-card text-foreground/80 inline-flex cursor-default items-center gap-2.5 rounded-lg border px-3.5 py-2 text-sm shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${pillHoverStyles[category.color]}`}
           >
-            <span className="flex h-4 w-4 shrink-0 items-center justify-center">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center transition-transform duration-300 group-hover:scale-110">
               {skill.icon}
             </span>
-            <span>{skill.name}</span>
+            <span className="font-medium">{skill.name}</span>
           </div>
         ))}
       </div>
@@ -203,8 +152,8 @@ function SkillGroup({
 export default function Skills() {
   return (
     <Container id="skills" className="mt-20">
-      <SectionHeading subHeading="Resume-aligned toolkit" heading="Skills" />
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      <SectionHeading subHeading="What I Work With" heading="Tech Stack" />
+      <div className="mt-10 space-y-8">
         {skillCategories.map((category, index) => (
           <SkillGroup key={category.title} category={category} index={index} />
         ))}

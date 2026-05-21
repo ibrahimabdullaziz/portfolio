@@ -8,7 +8,6 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 // Lazy-load below-the-fold sections to reduce LCP bundle size
-const StatsBar = dynamic(() => import('@/components/landing/StatsBar'));
 const Experience = dynamic(() => import('@/components/landing/Experience'));
 const Achievements = dynamic(() => import('@/components/landing/Achievements'));
 const Github = dynamic(() => import('@/components/landing/Github'));
@@ -19,9 +18,6 @@ export default function Page() {
     <Container className="min-h-screen py-16">
       <ErrorBoundary>
         <Hero />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <StatsBar />
       </ErrorBoundary>
       <ErrorBoundary>
         <About />
