@@ -9,7 +9,15 @@ import {
  * Case study content for each project, keyed by slug.
  * This replaces the old "Full case study coming soon." placeholder.
  */
-const caseStudyContent: Record<string, { content: string; challenges?: string[]; learnings?: string[]; timeline?: string }> = {
+const caseStudyContent: Record<
+  string,
+  {
+    content: string;
+    challenges?: string[];
+    learnings?: string[];
+    timeline?: string;
+  }
+> = {
   vsync: {
     content: `## The Problem
 
@@ -95,7 +103,7 @@ A fully functional global state manager that teaches React rendering internals t
       'Implementing useSyncExternalStore correctly to avoid tearing in concurrent React rendering.',
     ],
     learnings: [
-      'Building a state manager from scratch provides deep understanding of React\'s rendering lifecycle and subscription patterns.',
+      "Building a state manager from scratch provides deep understanding of React's rendering lifecycle and subscription patterns.",
       'The Observer Pattern is the foundational design pattern behind most reactive state management libraries.',
     ],
     timeline: 'January 2025',

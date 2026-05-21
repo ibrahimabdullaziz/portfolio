@@ -67,12 +67,12 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <Container className="sticky top-0 z-20 rounded-md py-4 backdrop-blur-sm">
+    <Container className="bg-background/70 border-border/50 sticky top-0 z-20 border-b py-3 shadow-sm shadow-black/[0.03] backdrop-blur-xl dark:shadow-black/20">
       <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-4">
           <MobileNav onOpenMegatron={() => setIsMegatronOpen(true)} />
 
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden items-center gap-6 md:flex">
             <div className="flex items-center gap-6">
               {navbarConfig.navItems.map((item) => {
                 const sectionId = item.href.replace('/#', '');
@@ -102,30 +102,30 @@ export default function Navbar() {
             onClick={() => setIsMegatronOpen(true)}
             variant="ghost"
             size="icon"
-            className="md:hidden relative h-9 w-9 rounded-full border border-primary/20 bg-primary/5"
+            className="border-primary/20 bg-primary/5 relative h-9 w-9 rounded-full border md:hidden"
           >
             <Image
               src="/assets/megatron.png"
               alt="Megatron"
               fill
-              className="object-cover rounded-full p-1"
+              className="rounded-full object-cover p-1"
             />
           </Button>
           <Button
             onClick={() => setIsMegatronOpen(true)}
             variant="outline"
             size="sm"
-            className="hidden md:flex items-center gap-2 rounded-full border-primary/20 bg-primary/5 hover:bg-primary/20 transition-all duration-300 shadow-sm overflow-hidden group px-1 pr-3"
+            className="border-primary/20 bg-primary/5 hover:bg-primary/20 group hidden items-center gap-2 overflow-hidden rounded-full px-1 pr-3 shadow-sm transition-all duration-300 md:flex"
           >
-            <div className="relative h-7 w-7 rounded-full border border-primary/30 group-hover:border-primary/50 transition-colors">
+            <div className="border-primary/30 group-hover:border-primary/50 relative h-7 w-7 rounded-full border transition-colors">
               <Image
                 src="/assets/megatron.png"
                 alt="Megatron"
                 fill
-                className="object-cover rounded-full"
+                className="rounded-full object-cover"
               />
             </div>
-            <span className="font-bold tracking-tight text-xs uppercase text-foreground">
+            <span className="text-foreground text-xs font-bold tracking-tight uppercase">
               Ask Megatron
             </span>
           </Button>

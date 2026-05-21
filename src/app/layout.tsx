@@ -31,7 +31,7 @@ export default function RootLayout({
       <html
         lang="en"
         suppressHydrationWarning
-        className={`${hanken.variable} scroll-smooth scroll-pt-24`}
+        className={`${hanken.variable} scroll-pt-24 scroll-smooth`}
       >
         <head>
           <script
@@ -62,7 +62,7 @@ export default function RootLayout({
               <div className="relative flex min-h-screen flex-col">
                 <a
                   href="#main-content"
-                  className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-background focus:text-primary focus:font-bold focus:shadow-md focus:rounded-br-md left-0 top-0"
+                  className="focus:bg-background focus:text-primary sr-only top-0 left-0 focus:not-sr-only focus:absolute focus:z-[100] focus:rounded-br-md focus:p-4 focus:font-bold focus:shadow-md"
                 >
                   Skip to main content
                 </a>

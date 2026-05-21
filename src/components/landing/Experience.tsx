@@ -16,14 +16,18 @@ export default function Experience() {
       />
       <div className="relative mt-8">
         {/* Timeline line */}
-        <div className="absolute top-0 bottom-0 left-4 w-px bg-neutral-200 md:left-1/2 md:-translate-x-px dark:bg-neutral-800" />
+        <div className="from-primary/40 via-border to-border absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b md:left-1/2 md:-translate-x-px" />
 
         <div className="space-y-12">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.company}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{
+                opacity: 0,
+                x: index % 2 === 0 ? -40 : 40,
+                filter: 'blur(8px)',
+              }}
+              whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               className={`relative flex flex-col md:flex-row ${
@@ -35,7 +39,7 @@ export default function Experience() {
                 <div
                   className={`h-3 w-3 rounded-full border-2 ${
                     exp.isCurrent
-                      ? 'border-green-500 bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.4)]'
+                      ? 'border-primary bg-primary shadow-[0_0_8px_var(--accent-glow)]'
                       : 'border-neutral-400 bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-800'
                   }`}
                 />

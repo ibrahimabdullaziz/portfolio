@@ -14,14 +14,6 @@ const Achievements = dynamic(() => import('@/components/landing/Achievements'));
 const Github = dynamic(() => import('@/components/landing/Github'));
 const CTA = dynamic(() => import('@/components/landing/CTA'));
 
-function SectionDivider() {
-  return (
-    <div className="mx-auto my-4 flex max-w-xs items-center justify-center">
-      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-    </div>
-  );
-}
-
 export default function Page() {
   return (
     <Container className="min-h-screen py-16">
@@ -31,23 +23,18 @@ export default function Page() {
       <ErrorBoundary>
         <StatsBar />
       </ErrorBoundary>
-      <SectionDivider />
       <ErrorBoundary>
         <About />
       </ErrorBoundary>
-      <SectionDivider />
       <ErrorBoundary>
         <Skills />
       </ErrorBoundary>
-      <SectionDivider />
       <ErrorBoundary>
         <Work />
       </ErrorBoundary>
-      <SectionDivider />
       <ErrorBoundary>
         <Experience />
       </ErrorBoundary>
-      <SectionDivider />
       <ErrorBoundary>
         <Achievements />
       </ErrorBoundary>

@@ -7,9 +7,9 @@ import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import type { Components } from 'react-markdown';
 
-import { ProjectComponents } from './ProjectComponents';
 import Github from '../svgs/Github';
 import Website from '../svgs/Website';
+import { ProjectComponents } from './ProjectComponents';
 
 interface ProjectContentProps {
   frontmatter: ProjectCaseStudyFrontmatter;

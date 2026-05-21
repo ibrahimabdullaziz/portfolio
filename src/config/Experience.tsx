@@ -36,7 +36,7 @@ export const experiences: Experience[] = [
     location: 'Tanta Branch, Egypt',
     image: '/assets/logo.png',
     description: [
-      'Completed Egypt\'s national 120-hour intensive React program; selected for the advanced project track.',
+      "Completed Egypt's national 120-hour intensive React program; selected for the advanced project track.",
       'Built React apps using Hooks, Context API, and Redux Toolkit to manage state across multi-page component trees.',
       'Applied TanStack Query v5 caching, background re-fetching, and optimistic updates to reduce redundant API calls.',
       'Built a shared component system following Atomic Design principles, improving consistency across 3+ projects.',

@@ -20,11 +20,12 @@ export default function SectionHeading({
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col gap-1"
     >
-      <p className="text-secondary text-sm font-medium uppercase tracking-wider">
+      <p className="text-primary/60 text-sm font-medium tracking-wider uppercase">
         {subHeading}
       </p>
-      <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+      <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
         {heading}
+        <span className="text-primary">.</span>
       </h2>
     </motion.div>
   );

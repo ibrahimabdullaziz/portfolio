@@ -33,10 +33,10 @@ export default function Footer() {
     }
   };
   return (
-    <Container className="py-12 mt-20 border-t border-neutral-200 dark:border-neutral-800">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+    <Container className="border-primary/10 mt-20 border-t py-12">
+      <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
         {/* Copyright & Dev Info */}
-        <div className="flex flex-col items-center md:items-start text-secondary text-sm">
+        <div className="text-secondary flex flex-col items-center text-sm md:items-start">
           <p>
             {footerConfig.text}{' '}
             <b className="text-foreground">{footerConfig.developer}</b>
@@ -67,13 +67,13 @@ export default function Footer() {
         </div>
 
         {/* Social Icons */}
-        <div className="flex items-center gap-4 text-secondary">
+        <div className="text-secondary flex items-center gap-4">
           {socialLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
               aria-label={link.name}
-              className="hover:text-primary hover:scale-110 transition-all duration-200"
+              className="hover:text-primary transition-all duration-200 hover:scale-110"
             >
               <div className="h-5 w-5">{link.icon}</div>
             </Link>

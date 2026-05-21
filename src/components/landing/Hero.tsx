@@ -2,7 +2,7 @@
 
 import { heroConfig, skillComponents, socialLinks } from '@/config/Hero';
 import { parseTemplate } from '@/lib/hero';
-import { motion, type Variants } from 'framer-motion';
+import { type Variants, motion } from 'framer-motion';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import React from 'react';
@@ -101,17 +101,18 @@ export default function Hero() {
       >
         {/* Left Column: Image and Social Links */}
         <motion.div
-          className="flex flex-col gap-6 shrink-0 w-full md:w-1/3"
+          className="flex w-full shrink-0 flex-col gap-6 md:w-1/3"
           variants={scaleIn}
         >
-          <div className="relative group">
+          <div className="group relative">
+            <div className="from-primary/20 via-primary/5 absolute -inset-1 rounded-md bg-gradient-to-br to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
             <Image
               src="/assets/logo.png"
               alt="Ibrahim Abdullaziz, Software Engineer"
               width={400}
               height={400}
               priority
-              className="relative w-full aspect-square rounded-md object-cover transition-transform duration-300 group-hover:scale-[1.005]"
+              className="relative aspect-square w-full rounded-md object-cover transition-transform duration-300 group-hover:scale-[1.005]"
             />
           </div>
           {/* Social Links */}
@@ -128,7 +129,7 @@ export default function Hero() {
                     <Link
                       href={link.href}
                       aria-label={link.name}
-                      className="text-muted-foreground flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-full hover:text-primary hover:bg-primary/5 transition-all duration-200"
+                      className="text-muted-foreground hover:text-primary hover:bg-primary/10 hover:ring-primary/20 flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full p-2 transition-all duration-200 hover:ring-1"
                     >
                       <span className="size-5">{link.icon}</span>
                     </Link>
@@ -143,7 +144,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Right Column: Text Area */}
-        <div className="flex flex-col gap-4 pt-4 md:pt-0 md:w-2/3">
+        <div className="flex flex-col gap-4 pt-4 md:w-2/3 md:pt-0">
           {/* Open to Work Banner */}
           <motion.div
             variants={slideInLeft}
@@ -157,7 +158,7 @@ export default function Hero() {
           </motion.div>
           <motion.h1 className="text-4xl font-bold" variants={fadeUp}>
             Hi, I&apos;m {name} —{' '}
-            <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent inline-block min-h-[1.2em]">
+            <span className="from-primary via-primary/80 to-primary/50 inline-block min-h-[1.2em] bg-gradient-to-r bg-clip-text text-transparent">
               <Typewriter
                 strings={[
                   title,
@@ -179,10 +180,10 @@ export default function Hero() {
           </motion.div>
           <motion.p
             variants={fadeUp}
-            className="text-muted-foreground text-base leading-relaxed mt-2 max-w-xl md:text-lg"
+            className="text-muted-foreground mt-2 max-w-xl text-base leading-relaxed md:text-lg"
           >
-            Currently pursuing Computer Science at Kafr Elsheikh University
-            with a 3.31 CGPA. ITI-certified in React Development, focused on
+            Currently pursuing Computer Science at Kafr Elsheikh University with
+            a 3.31 CGPA. ITI-certified in React Development, focused on
             component architecture, state management, UI performance, and
             real-time web applications.
           </motion.p>
@@ -199,14 +200,14 @@ export default function Hero() {
                 <Link
                   key={index}
                   href={button.href}
-                  className="group/action relative inline-flex min-h-10 items-center gap-3 text-sm font-semibold tracking-wide text-foreground transition-colors duration-200 hover:text-foreground/70"
+                  className="group/action text-foreground hover:text-foreground/70 relative inline-flex min-h-10 items-center gap-3 text-sm font-semibold tracking-wide transition-colors duration-200"
                 >
-                  <span className="flex h-5 w-5 items-center justify-center text-foreground/70 transition-colors duration-200 group-hover/action:text-foreground">
+                  <span className="text-foreground/70 group-hover/action:text-foreground flex h-5 w-5 items-center justify-center transition-colors duration-200">
                     {IconComponent && <IconComponent />}
                   </span>
                   <span className="relative">
                     {button.text}
-                    <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-foreground/60 transition-transform duration-200 group-hover/action:scale-x-100" />
+                    <span className="bg-primary absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 transition-all duration-200 group-hover/action:scale-x-100" />
                   </span>
                 </Link>
               );

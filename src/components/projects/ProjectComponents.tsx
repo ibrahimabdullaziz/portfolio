@@ -265,7 +265,7 @@ export const ProjectComponents = {
   }) => {
     return (
       <pre
-        className="bg-muted/30 overflow-x-auto rounded-lg border p-4 mb-4 text-sm [&>code]:bg-transparent [&>code]:p-0"
+        className="bg-muted/30 mb-4 overflow-x-auto rounded-lg border p-4 text-sm [&>code]:bg-transparent [&>code]:p-0"
         {...props}
       >
         {children}

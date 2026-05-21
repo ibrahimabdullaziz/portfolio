@@ -75,7 +75,7 @@ export default function Typewriter({
   return (
     <span className="inline-flex items-center">
       {currentText}
-      <span className="animate-pulse border-r-2 border-foreground h-[1em] ml-[2px]"></span>
+      <span className="border-foreground ml-[2px] h-[1em] animate-pulse border-r-2"></span>
     </span>
   );
 }

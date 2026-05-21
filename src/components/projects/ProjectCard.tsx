@@ -72,7 +72,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       onMouseLeave={handleMouseLeave}
       className="h-full w-full"
     >
-      <Card className="group relative h-full w-full overflow-hidden border border-neutral-200 dark:border-neutral-800 p-0 shadow-sm hover:shadow-md cursor-pointer transition-all duration-300">
+      <Card className="group hover:border-primary/30 hover:shadow-primary/5 relative h-full w-full cursor-pointer overflow-hidden border border-neutral-200 p-0 shadow-sm transition-all duration-300 hover:shadow-xl dark:border-neutral-800">
         {/* Stretched Link to cover the entire card */}
         <Link
           href={project.projectDetailsPageSlug}
@@ -80,7 +80,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           aria-label={`View details for ${project.title}`}
         />
 
-        <CardHeader className="p-0 relative z-10 pointer-events-none">
+        <CardHeader className="pointer-events-none relative z-10 p-0">
           <div className="group relative aspect-video overflow-hidden">
             <Image
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -116,22 +116,23 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 </Dialog>
               </div>
             )}
+            <div className="from-card pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t to-transparent" />
           </div>
         </CardHeader>
 
-        <CardContent className="px-6 relative z-10 flex flex-col pointer-events-none">
-          <div className="space-y-4 flex-1">
+        <CardContent className="pointer-events-none relative z-10 flex flex-col px-6">
+          <div className="flex-1 space-y-4">
             {/* Project Header - Title and Icons */}
-            <div className="flex items-center justify-between gap-4 mt-6">
-              <h3 className="group-hover:text-primary transition-colors text-xl leading-tight font-semibold">
+            <div className="mt-6 flex items-center justify-between gap-4">
+              <h3 className="group-hover:text-primary text-xl leading-tight font-semibold transition-colors">
                 {project.title}
               </h3>
 
-              <div className="flex items-center gap-2 pointer-events-auto">
+              <div className="pointer-events-auto flex items-center gap-2">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <a
-                      className="text-secondary hover:text-primary flex size-6 items-center justify-center transition-colors relative z-20"
+                      className="text-secondary hover:text-primary relative z-20 flex size-6 items-center justify-center transition-colors"
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -148,7 +149,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <a
-                        className="text-secondary hover:text-primary flex size-6 items-center justify-center transition-colors relative z-20"
+                        className="text-secondary hover:text-primary relative z-20 flex size-6 items-center justify-center transition-colors"
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -166,7 +167,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <a
-                        className="text-secondary hover:text-primary flex size-6 items-center justify-center transition-colors relative z-20"
+                        className="text-secondary hover:text-primary relative z-20 flex size-6 items-center justify-center transition-colors"
                         href={project.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -186,7 +187,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <p className="text-secondary line-clamp-3">{project.description}</p>
 
             {/* Technologies */}
-            <div className="mt-auto pt-4 pointer-events-auto">
+            <div className="pointer-events-auto mt-auto pt-4">
               <h4 className="text-secondary mb-2 text-sm font-medium">
                 Technologies
               </h4>
@@ -194,7 +195,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 {project.technologies.map((technology, index) => (
                   <Tooltip key={index}>
                     <TooltipTrigger asChild>
-                      <div className="size-6 transition-transform duration-300 hover:scale-110 relative z-20">
+                      <div className="relative z-20 size-6 transition-transform duration-300 hover:scale-110">
                         {technology.icon}
                       </div>
                     </TooltipTrigger>
@@ -209,7 +210,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </CardContent>
 
         {project.details && (
-          <CardFooter className="flex justify-between p-6 pt-0 mt-4 relative z-10 pointer-events-none">
+          <CardFooter className="pointer-events-none relative z-10 mt-4 flex justify-between p-6 pt-0">
             <div
               className={`flex items-center gap-1 rounded-md px-2 py-1 text-xs ${
                 project.isWorking
@@ -230,7 +231,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
               )}
             </div>
             <div className="text-secondary group-hover:text-primary flex items-center gap-2 text-sm underline-offset-4 transition-colors group-hover:underline">
-              View Details <ArrowRight className="size-4" />
+              View Details{' '}
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </div>
           </CardFooter>
         )}

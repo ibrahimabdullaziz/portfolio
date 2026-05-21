@@ -5,8 +5,8 @@ import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
 import Cal, { getCalApi } from '@calcom/embed-react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Mail } from 'lucide-react';
-import Image from 'next/image';
 import { Link } from 'next-view-transitions';
+import Image from 'next/image';
 import { useState } from 'react';
 
 import Container from '../common/Container';
@@ -66,15 +66,15 @@ export default function CTA({
     <>
       <Container className="mt-20 mb-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.98, y: 20 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="relative overflow-hidden rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/5 via-card to-primary/3 p-8 md:p-12"
+          className="border-primary/20 from-primary/8 via-card to-primary/5 relative overflow-hidden rounded-2xl border bg-gradient-to-br p-8 md:p-12"
         >
           {/* Background decoration */}
-          <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-primary/5 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-primary/8 blur-3xl" />
+          <div className="bg-primary/12 pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full blur-[60px]" />
+          <div className="bg-primary/12 pointer-events-none absolute -bottom-20 -left-20 h-48 w-48 rounded-full blur-[60px]" />
 
           <div className="relative flex flex-col items-center gap-8 md:flex-row md:gap-12">
             {/* Profile image with glow */}
@@ -85,8 +85,8 @@ export default function CTA({
               transition={{ delay: 0.2, duration: 0.5 }}
               className="relative shrink-0"
             >
-              <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 blur-lg" />
-              <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-primary/20 md:h-28 md:w-28">
+              <div className="from-primary/30 to-primary/10 absolute -inset-2 rounded-full bg-gradient-to-br blur-lg" />
+              <div className="border-primary/20 relative h-24 w-24 overflow-hidden rounded-full border-2 md:h-28 md:w-28">
                 <Image
                   alt={profileAlt}
                   width={112}
@@ -104,7 +104,7 @@ export default function CTA({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.15, duration: 0.5 }}
-                className="text-2xl font-bold tracking-tight text-foreground md:text-3xl"
+                className="text-foreground text-2xl font-bold tracking-tight md:text-3xl"
               >
                 {preText}
               </motion.h2>
@@ -113,7 +113,7 @@ export default function CTA({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.25, duration: 0.5 }}
-                className="mt-2 max-w-lg text-base text-muted-foreground md:text-lg"
+                className="text-muted-foreground mt-2 max-w-lg text-base md:text-lg"
               >
                 I&apos;m currently available for full-time roles and freelance
                 projects. Let&apos;s discuss how I can contribute to your team.
@@ -130,7 +130,7 @@ export default function CTA({
                 {calLink ? (
                   <button
                     onClick={handleScheduleClick}
-                    className="group inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98]"
+                    className="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
                   >
                     <Calendar className="h-4 w-4" />
                     {linkText}
@@ -139,7 +139,7 @@ export default function CTA({
                 ) : (
                   <Link
                     href="/contact"
-                    className="group inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98]"
+                    className="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
                   >
                     <Calendar className="h-4 w-4" />
                     {linkText}
@@ -148,7 +148,7 @@ export default function CTA({
                 )}
                 <a
                   href="mailto:ibrahimabdullaziz55@gmail.com"
-                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-card/80 px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 hover:shadow-sm"
+                  className="border-border bg-card/80 text-foreground hover:border-primary/30 hover:bg-primary/5 inline-flex items-center gap-2 rounded-lg border px-6 py-3 text-sm font-medium transition-all duration-300 hover:shadow-sm"
                 >
                   <Mail className="h-4 w-4" />
                   Send an Email

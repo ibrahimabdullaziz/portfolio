@@ -110,13 +110,13 @@ export default function ContactForm() {
       </CardHeader>
       <CardContent>
         {isSubmitted ? (
-          <div className="flex flex-col items-center justify-center gap-4 py-12 text-center animate-in fade-in-0 zoom-in-95 duration-500">
+          <div className="animate-in fade-in-0 zoom-in-95 flex flex-col items-center justify-center gap-4 py-12 text-center duration-500">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10 ring-1 ring-green-500/20">
               <CheckCircle2 className="h-8 w-8 text-green-500" />
             </div>
             <div className="space-y-1.5">
               <h3 className="text-xl font-semibold">Message Sent!</h3>
-              <p className="text-muted-foreground text-sm max-w-sm">
+              <p className="text-muted-foreground max-w-sm text-sm">
                 Thank you for reaching out. I&apos;ll get back to you as soon as
                 possible.
               </p>

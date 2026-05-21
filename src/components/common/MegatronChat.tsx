@@ -37,18 +37,18 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="flex h-[85vh] w-full max-w-2xl flex-col p-0 overflow-hidden border-2 border-primary/20 shadow-2xl shadow-primary/10 sm:h-[70vh]">
-        <DialogHeader className="border-b bg-muted/30 p-4">
+      <DialogContent className="border-primary/20 shadow-primary/10 flex h-[85vh] w-full max-w-2xl flex-col overflow-hidden border-2 p-0 shadow-2xl sm:h-[70vh]">
+        <DialogHeader className="bg-muted/30 border-b p-4">
           <div className="flex items-center space-x-3">
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-primary/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-500 animate-pulse" />
-              <Avatar className="h-10 w-10 border-2 border-primary bg-primary/10 shadow-lg shadow-primary/20 relative z-10 transition-transform duration-300 group-hover:scale-110">
+            <div className="group relative">
+              <div className="bg-primary/20 absolute -inset-1 animate-pulse rounded-full opacity-0 blur transition duration-500 group-hover:opacity-100" />
+              <Avatar className="border-primary bg-primary/10 shadow-primary/20 relative z-10 h-10 w-10 border-2 shadow-lg transition-transform duration-300 group-hover:scale-110">
                 <AvatarImage src="/assets/megatron.png" alt="Megatron" />
                 <AvatarFallback className="bg-primary text-primary-foreground font-bold">
                   MT
                 </AvatarFallback>
               </Avatar>
-              <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-background bg-green-500 shadow-sm animate-pulse z-20" />
+              <div className="border-background absolute -right-0.5 -bottom-0.5 z-20 h-3 w-3 animate-pulse rounded-full border-2 bg-green-500 shadow-sm" />
             </div>
             <div className="text-left">
               <DialogTitle className="text-lg font-bold tracking-tight">
@@ -64,10 +64,10 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
         <ScrollArea
           ref={scrollAreaRef}
           data-lenis-prevent
-          className="flex-1 min-h-0 p-4 md:p-6 bg-linear-to-b from-transparent to-primary/5 relative"
+          className="to-primary/5 relative min-h-0 flex-1 bg-linear-to-b from-transparent p-4 md:p-6"
         >
           <div
-            className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+            className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
             style={{
               backgroundImage:
                 'radial-gradient(var(--primary) 0.5px, transparent 0.5px)',
@@ -75,7 +75,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
             }}
           />
 
-          <div className="space-y-6 relative z-10">
+          <div className="relative z-10 space-y-6">
             <AnimatePresence initial={false}>
               {messages.map((message) => (
                 <MegatronMessageBubble key={message.id} message={message} />
@@ -89,7 +89,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                 transition={{ delay: 0.5 }}
                 className="space-y-3 pt-4"
               >
-                <p className="text-muted-foreground px-1 text-xs font-semibold uppercase tracking-wider">
+                <p className="text-muted-foreground px-1 text-xs font-semibold tracking-wider uppercase">
                   Suggested Inquiries
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -99,7 +99,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                       variant="outline"
                       size="sm"
                       onClick={() => handleSendMessage(suggestion)}
-                      className="bg-background/50 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground border-primary/20 h-auto py-2 px-4 text-xs font-semibold transition-all duration-300 rounded-full active:scale-95 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                      className="bg-background/50 hover:bg-primary hover:text-primary-foreground border-primary/20 hover:shadow-primary/20 h-auto rounded-full px-4 py-2 text-xs font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95"
                     >
                       {suggestion}
                     </Button>
@@ -111,7 +111,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
           </div>
         </ScrollArea>
 
-        <div className="border-t bg-muted/30 backdrop-blur-sm p-4 md:p-6">
+        <div className="bg-muted/30 border-t p-4 backdrop-blur-sm md:p-6">
           <form
             onSubmit={handleSubmit}
             className="relative flex items-center gap-3"
@@ -122,9 +122,9 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 disabled={isLoading}
-                className="pr-12 bg-background/50 backdrop-blur-sm border-primary/20 focus-visible:ring-primary/30 h-12 rounded-2xl shadow-inner transition-all duration-300 focus:bg-background"
+                className="bg-background/50 border-primary/20 focus-visible:ring-primary/30 focus:bg-background h-12 rounded-2xl pr-12 shadow-inner backdrop-blur-sm transition-all duration-300"
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+              <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
                 <AnimatePresence>
                   {newMessage.trim() && !isLoading && (
                     <motion.div
@@ -135,7 +135,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                       <Button
                         type="submit"
                         size="icon"
-                        className="h-8 w-8 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20 h-8 w-8 rounded-xl shadow-lg"
                       >
                         <SendIcon className="h-4 w-4" />
                       </Button>
@@ -143,7 +143,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                   )}
                 </AnimatePresence>
                 {isLoading && (
-                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                  <div className="border-primary h-5 w-5 animate-spin rounded-full border-2 border-t-transparent" />
                 )}
               </div>
             </div>
@@ -152,7 +152,7 @@ const MegatronChat: React.FC<MegatronChatProps> = ({ open, onOpenChange }) => {
                 type="submit"
                 size="icon"
                 disabled
-                className="h-12 w-12 rounded-2xl bg-muted text-muted-foreground transition-all duration-300"
+                className="bg-muted text-muted-foreground h-12 w-12 rounded-2xl transition-all duration-300"
               >
                 <SendIcon className="h-5 w-5" />
               </Button>

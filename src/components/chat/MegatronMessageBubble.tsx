@@ -20,7 +20,7 @@ export const MegatronMessageBubble: React.FC<MegatronMessageBubbleProps> = ({
           {...props}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-inherit underline underline-offset-2 hover:opacity-80 font-bold"
+          className="font-bold text-inherit underline underline-offset-2 hover:opacity-80"
         />
       ),
       p: (props: HTMLAttributes<HTMLParagraphElement>) => (
@@ -44,8 +44,8 @@ export const MegatronMessageBubble: React.FC<MegatronMessageBubbleProps> = ({
         className={cn(
           'max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm transition-all duration-300',
           message.sender === 'user'
-            ? 'bg-neutral-800 text-white dark:bg-neutral-200 dark:text-neutral-900 rounded-tr-none shadow-neutral-500/20'
-            : 'bg-background/40 backdrop-blur-md border border-primary/10 rounded-tl-none shadow-black/5 dark:shadow-white/5',
+            ? 'rounded-tr-none bg-neutral-800 text-white shadow-neutral-500/20 dark:bg-neutral-200 dark:text-neutral-900'
+            : 'bg-background/40 border-primary/10 rounded-tl-none border shadow-black/5 backdrop-blur-md dark:shadow-white/5',
         )}
         aria-live={message.isStreaming ? 'polite' : 'off'}
         aria-atomic="true"
@@ -55,7 +55,7 @@ export const MegatronMessageBubble: React.FC<MegatronMessageBubbleProps> = ({
             'prose prose-sm max-w-none',
             message.sender === 'bot'
               ? 'dark:prose-invert'
-              : 'text-current prose-p:text-current prose-a:text-current prose-strong:text-current',
+              : 'prose-p:text-current prose-a:text-current prose-strong:text-current text-current',
           )}
         >
           {message.text ? (
@@ -89,7 +89,7 @@ export const MegatronMessageBubble: React.FC<MegatronMessageBubbleProps> = ({
           )}
         </div>
       </div>
-      <span className="text-[10px] text-muted-foreground font-medium px-1">
+      <span className="text-muted-foreground px-1 text-[10px] font-medium">
         {message.timestamp}
       </span>
     </motion.div>
