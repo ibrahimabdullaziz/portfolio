@@ -31,7 +31,7 @@ interface SkillItem {
   icon: React.ReactNode;
 }
 
-type ThemeColor = 'blue' | 'emerald' | 'amber' | 'purple';
+type ThemeColor = 'blue' | 'emerald' | 'lime' | 'purple';
 
 interface SkillCategory {
   title: string;
@@ -69,7 +69,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Tooling & Delivery',
-    color: 'amber',
+    color: 'lime',
     skills: [
       { name: 'Framer Motion', icon: <FramerMotion key="framermotion" /> },
       { name: 'Jest', icon: <Jest key="jest" /> },
@@ -90,7 +90,7 @@ export const allSkills = skillCategories.flatMap((cat) => cat.skills);
 const titleColors: Record<ThemeColor, string> = {
   blue: 'text-blue-600 dark:text-blue-400',
   emerald: 'text-emerald-600 dark:text-emerald-400',
-  amber: 'text-amber-600 dark:text-amber-400',
+  lime: 'text-lime-600 dark:text-lime-400',
   purple: 'text-purple-600 dark:text-purple-400',
 };
 
@@ -98,8 +98,8 @@ const pillHoverStyles: Record<ThemeColor, string> = {
   blue: 'hover:border-blue-400/50 hover:bg-blue-500/8 hover:text-blue-700 dark:hover:text-blue-300 hover:shadow-blue-500/10',
   emerald:
     'hover:border-emerald-400/50 hover:bg-emerald-500/8 hover:text-emerald-700 dark:hover:text-emerald-300 hover:shadow-emerald-500/10',
-  amber:
-    'hover:border-amber-400/50 hover:bg-amber-500/8 hover:text-amber-700 dark:hover:text-amber-300 hover:shadow-amber-500/10',
+  lime:
+    'hover:border-lime-400/50 hover:bg-lime-500/8 hover:text-lime-700 dark:hover:text-lime-300 hover:shadow-lime-500/10',
   purple:
     'hover:border-purple-400/50 hover:bg-purple-500/8 hover:text-purple-700 dark:hover:text-purple-300 hover:shadow-purple-500/10',
 };

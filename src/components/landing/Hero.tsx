@@ -105,7 +105,7 @@ export default function Hero() {
           variants={scaleIn}
         >
           <div className="group relative">
-            <div className="absolute -inset-1 rounded-md bg-gradient-to-br from-amber-500/25 via-orange-400/10 to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="absolute -inset-1 rounded-md bg-gradient-to-br from-primary/30 via-primary/10 to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
             <Image
               src="/assets/logo.png"
               alt="Ibrahim Abdullaziz, Software Engineer"
@@ -158,7 +158,7 @@ export default function Hero() {
           </motion.div>
           <motion.h1 className="text-4xl font-bold" variants={fadeUp}>
             Hi, I&apos;m {name} —{' '}
-            <span className="from-primary inline-block min-h-[1.2em] bg-gradient-to-r via-amber-500/80 to-orange-400/60 bg-clip-text text-transparent">
+            <span className="inline-block min-h-[1.2em] bg-gradient-to-r from-primary via-primary/80 to-primary/50 bg-clip-text text-transparent">
               <Typewriter
                 strings={[
                   title,

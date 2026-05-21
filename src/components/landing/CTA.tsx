@@ -73,8 +73,8 @@ export default function CTA({
           className="border-primary/20 from-primary/8 via-card to-primary/5 relative overflow-hidden rounded-2xl border bg-gradient-to-br p-8 md:p-12"
         >
           {/* Background decoration */}
-          <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-amber-500/15 blur-[60px]" />
-          <div className="pointer-events-none absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-orange-400/12 blur-[60px]" />
+          <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-primary/15 blur-[60px]" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-primary/12 blur-[60px]" />
 
           <div className="relative flex flex-col items-center gap-8 md:flex-row md:gap-12">
             {/* Profile image with glow */}
